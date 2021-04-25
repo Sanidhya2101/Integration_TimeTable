@@ -1,0 +1,15 @@
+{
+  "client_id" : "495d58ce-13ab-4cf4-baf8-dd270f69c46d",
+  "authorization_user_agent" : "DEFAULT",
+  "account_mode" : "SINGLE",
+  "redirect_uri" : "msauth://com.example.timetable_integration/VtdmKBfiwPlV%2BSJn14aQgLZ2Rzg%3D",
+  "authorities" : [
+    {
+      "type": "AAD",
+      "audience": {
+        "type": "AzureADMyOrg",
+        "tenant_id": "850aa78d-94e1-4bc6-9cf3-8c11b530701c"
+      }
+    }
+  ]
+}

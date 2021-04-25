@@ -2,11 +2,9 @@ package com.example.timetable_integration;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -15,6 +13,7 @@ import android.widget.RelativeLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
+
     FloatingActionButton add_new_event;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void new_event(View view) {
-      //  add_new_event.hide();
+        //  add_new_event.hide();
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.popup_new_events, null);
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         // create the popup window
         int width = LinearLayout.LayoutParams.MATCH_PARENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-      //boolean focusable = true; // lets taps outside the popup also dismiss it
+        //boolean focusable = true; // lets taps outside the popup also dismiss it
         boolean focusable = true;
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
@@ -80,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
 
     }
 }
