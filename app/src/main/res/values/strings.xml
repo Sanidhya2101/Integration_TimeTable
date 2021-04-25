@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TimeTable_Integration</string>
+    <string name="preference_file_key">auth_details</string>
 </resources>
