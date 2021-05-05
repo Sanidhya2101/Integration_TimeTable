@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/top"
+        android:background="#1A2D35"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:id="@+id/class_icon"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_quiz_icon"
+            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
+            app:tint="@color/white" />
+        <TextView
+            android:layout_toRightOf="@+id/class_icon"
+            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textColor="#fff"
+            android:text="Edit Quiz"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/top"
+        android:layout_height="300dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/edit_course"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/class_code_icon"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_class_icon"
+                android:layout_marginTop="8dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_toRightOf="@+id/class_code_icon"
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:id="@+id/textcoursecode"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:textColor="#4D5C62"
+                android:text="Course Code"/>
+            <EditText
+                android:layout_toRightOf="@+id/textcoursecode"
+                android:layout_marginLeft="30dp"
+                android:id="@+id/class_code"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:textColor="#000"/>
+        </RelativeLayout>
+        <ListView
+            android:layout_width="300dp"
+            android:layout_below="@+id/edit_course"
+            android:layout_height="wrap_content"
+            android:id="@+id/slot_list"
+            android:layout_marginBottom="50dp"
+            android:layout_centerHorizontal="true"/>
+        <Button
+            android:layout_width="300dp"
+            android:id="@+id/update_quiz"
+            android:layout_height="50dp"
+            android:backgroundTint="#1A2D35"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:text="Update Quiz"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
