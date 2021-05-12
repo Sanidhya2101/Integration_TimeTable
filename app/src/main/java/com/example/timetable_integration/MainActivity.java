@@ -1,6 +1,10 @@
 package com.example.timetable_integration;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -10,18 +14,80 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.example.timetable_integration.Adaptor.CourseAdaptor;
+import com.example.timetable_integration.Models.Course;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton add_new_event,edit_event;
+    RecyclerView courses_rec;
+    ArrayList<Course> coursedata;
+    CourseAdaptor courseAdaptor;
+    FirebaseFirestore fstore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         add_new_event=(FloatingActionButton) findViewById(R.id.add_new_event);
         edit_event=(FloatingActionButton) findViewById(R.id.edit_event);
+        fstore = FirebaseFirestore.getInstance();
+        courses_rec = findViewById(R.id.course_class);
+        coursedata = new ArrayList<>();
+
+        LinearLayoutManager ll = new LinearLayoutManager(this);
+        ll.setReverseLayout(true);
+        ll.setStackFromEnd(true);
+
+        courses_rec.setLayoutManager(ll);
+        courseAdaptor = new CourseAdaptor(coursedata,this);
+
+
+        
+
+        fstore.collection("Timetable").orderBy("course_time", Query.Direction.DESCENDING)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+
+                for(DocumentSnapshot d:list)
+                {
+                    Course obj = d.toObject(Course.class);
+                    coursedata.add(obj);
+                }
+
+                courses_rec.setAdapter(courseAdaptor);
+                courseAdaptor.notifyDataSetChanged();
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull @NotNull Exception e) {
+                Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
         add_new_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout add_new_quiz=(RelativeLayout) popupView.findViewById(R.id.select_quiz);
         RelativeLayout add_new_lab=(RelativeLayout) popupView.findViewById(R.id.select_lab);
         RelativeLayout add_new_viva=(RelativeLayout) popupView.findViewById(R.id.select_viva);
+
+
         add_new_class.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -76,6 +144,10 @@ public class MainActivity extends AppCompatActivity {
                 // show the popup window
                 // which view you pass in doesn't matter, it is only used for the window tolken
                 popupClassWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+
+
+
             }
         });
         add_new_assignment.setOnClickListener(new View.OnClickListener() {
