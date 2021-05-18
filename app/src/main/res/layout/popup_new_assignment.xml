@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/top"
-        android:background="#649CFF"
-        android:layout_height="wrap_content">
+        android:background="#1A2D35"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp">
         <ImageView
             android:layout_width="wrap_content"
-            android:id="@+id/assignment_icon"
+            android:id="@+id/class_icon"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_assignment_icon"
+            android:src="@drawable/ic_quiz_icon"
             android:layout_marginTop="8dp"
             android:layout_height="wrap_content"
             app:tint="@color/white" />
         <TextView
-            android:layout_toRightOf="@+id/assignment_icon"
+            android:layout_toRightOf="@+id/class_icon"
             android:layout_marginLeft="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:textColor="#fff"
-            android:text="Add a new Assignment"/>
+            android:text="Add New Assignment"/>
 
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_below="@+id/top"
-        android:layout_height="300dp">
+        android:layout_height="400dp"
+        android:layout_marginTop="16dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:id="@+id/edit_course"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:id="@+id/class_code_icon"
@@ -45,38 +53,91 @@
                 android:layout_height="wrap_content"/>
             <TextView
                 android:layout_toRightOf="@+id/class_code_icon"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="16dp"
                 android:layout_width="wrap_content"
                 android:id="@+id/textcoursecode"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
                 android:textColor="#4D5C62"
-                android:text="Course Code"/>
+                android:text="Course Code:"/>
             <EditText
                 android:layout_toRightOf="@+id/textcoursecode"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="8dp"
+                android:id="@+id/new_assignment_code"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:textColor="#000"/>
+                android:textSize="20sp"
+                android:textColor="#000"
+                android:layout_marginRight="32dp"/>
         </RelativeLayout>
-        <ListView
+        <LinearLayout
             android:layout_width="300dp"
             android:layout_below="@+id/edit_course"
             android:layout_height="wrap_content"
             android:id="@+id/slot_list"
             android:layout_marginBottom="50dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textSize="20sp"
+                    android:textColor="#4D5C62"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/new_assignment_name"
+                    android:textColor="#000"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Platform"
+                    android:textSize="20sp"
+                    android:textColor="#4D5C62"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/new_assignment_platform"
+                    android:textColor="#000"/>
+            </LinearLayout>
+            <Button
+                android:layout_width="300dp"
+                android:id="@+id/new_assignment_deadline"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#2196F3"
+                android:layout_alignParentBottom="true"
+                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:text="Select Deadline"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
         <Button
             android:layout_width="300dp"
-            android:id="@+id/create_new_assignment"
+            android:id="@+id/add_assignment"
             android:layout_height="50dp"
+            android:backgroundTint="#1A2D35"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:textColor="@color/white"
-            android:backgroundTint="#649CFF"
-            android:text="Create Assignment"/>
+            android:layout_centerHorizontal="true"
+            android:text="Add Assignment"/>
 
     </RelativeLayout>
 
-</RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>
