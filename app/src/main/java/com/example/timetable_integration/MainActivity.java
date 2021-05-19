@@ -204,7 +204,13 @@ public class MainActivity extends AppCompatActivity {
                     data.put("Name",name.getText().toString());
                     data.put("Platform",platform.getText().toString());
                     data.put("Status","Pending");
-                    fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection("Assignment").add(data);
+                    fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection("Assignment").add(data)
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull @NotNull Exception e) {
+                                    Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                                }
+                            });
                     popupClassWindow.dismiss();
                 });
 

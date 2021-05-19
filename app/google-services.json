@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "898096083974",
-    "project_id": "timetable-integration-9cceb",
-    "storage_bucket": "timetable-integration-9cceb.appspot.com"
+    "project_number": "197124682378",
+    "project_id": "integration-timetable",
+    "storage_bucket": "integration-timetable.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:898096083974:android:c208b30dcc2caaa3943f87",
+        "mobilesdk_app_id": "1:197124682378:android:476a9e2270e2fe74b5f373",
         "android_client_info": {
           "package_name": "com.example.timetable_integration"
         }
       },
       "oauth_client": [
         {
-          "client_id": "898096083974-8fuaubg80cjdijc4kkovdb4tubtg03v4.apps.googleusercontent.com",
+          "client_id": "197124682378-lt38icqo37qu7nubnvdobfdd50u7rvac.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBkrESMPqnDkSLXUE9vD1Tvg2RWiaKS-ms"
+          "current_key": "AIzaSyCJ8tOhGH16u3GB3lyxbSOUdGI5m8PmhRQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "898096083974-8fuaubg80cjdijc4kkovdb4tubtg03v4.apps.googleusercontent.com",
+              "client_id": "197124682378-lt38icqo37qu7nubnvdobfdd50u7rvac.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
