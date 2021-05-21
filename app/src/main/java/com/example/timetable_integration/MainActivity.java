@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     String student_year = "First_Year";
     String student_semester = "Semester 1";
 
+    Date date;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 Button time_selector = popupclassView.findViewById(R.id.new_assignment_deadline);
                 final long[] time = new long[1];
                 time_selector.setOnClickListener(view2 -> {
-                    data.put("Time", new Timestamp(showDateTimePicker(popupclassView.getContext()).getTime()));
+                    showDateTimePicker(popupclassView.getContext());
                 });
                 Button update_time = popupclassView.findViewById(R.id.add_assignment);
                 EditText  code = popupclassView.findViewById(R.id.new_assignment_code);
@@ -203,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
                     data.put("Code",code.getText().toString());
                     data.put("Name",name.getText().toString());
                     data.put("Platform",platform.getText().toString());
+                    data.put("Deadline", new Timestamp(date));
                     data.put("Status","Pending");
                     fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection("Assignment").add(data)
                             .addOnFailureListener(new OnFailureListener() {
@@ -239,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
             Button time_selector = popupclassView.findViewById(R.id.new_quiz_time_button);
             final long[] time = new long[1];
             time_selector.setOnClickListener(view2 -> {
-                data.put("Time", new Timestamp(showDateTimePicker(popupclassView.getContext()).getTime()));
+                showDateTimePicker(popupclassView.getContext());
             });
             Button update_time = popupclassView.findViewById(R.id.add_quiz);
             EditText  code = popupclassView.findViewById(R.id.new_quiz_code);
@@ -251,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
                 data.put("Name",name.getText().toString());
                 data.put("Duration",duration.getText().toString());
                 data.put("Platform",platform.getText().toString());
+                data.put("Time", new Timestamp(date));
                 data.put("Status","Pending");
                 fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection("Quiz").add(data)
                         .addOnFailureListener(new OnFailureListener() {
@@ -308,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Button time_selector = popupclassView.findViewById(R.id.new_viva_time_button);
                 time_selector.setOnClickListener(view2 -> {
-                    data.put("Time", new Timestamp(showDateTimePicker(popupclassView.getContext()).getTime()));
+                    showDateTimePicker(popupclassView.getContext());
                 });
                 Button update_time = popupclassView.findViewById(R.id.add_viva);
                 EditText  code = popupclassView.findViewById(R.id.new_viva_code);
@@ -320,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
                     data.put("Name",name.getText().toString());
                     data.put("Duration",duration.getText().toString());
                     data.put("Platform",platform.getText().toString());
+                    data.put("Time", new Timestamp(date));
                     data.put("Status","Pending");
                     fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection("Viva").add(data)
                             .addOnFailureListener(new OnFailureListener() {
@@ -478,18 +483,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public Calendar showDateTimePicker(Context context) {
-        Calendar date;
-        date = Calendar.getInstance();
+    public void showDateTimePicker(Context context) {
+        Calendar calendar;
+        calendar = Calendar.getInstance();
         new DatePickerDialog(context, (view, year, monthOfYear, dayOfMonth) -> {
-            date.set(year, monthOfYear, dayOfMonth);
+            calendar.set(year, monthOfYear, dayOfMonth);
             new TimePickerDialog(context, (view1, hourOfDay, minute) -> {
-                date.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                date.set(Calendar.MINUTE, minute);
-                Log.v("abcd", "The choosen one " + date.getTime());
-            }, date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE), false).show();
-        }, date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DATE)).show();
-        return date;
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
+                Log.v("abcd", "The chosen one " + calendar.getTime());
+                date = calendar.getTime();
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)).show();
     }
 
 }
