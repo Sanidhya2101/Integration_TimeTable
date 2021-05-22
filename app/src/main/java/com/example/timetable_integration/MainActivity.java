@@ -279,11 +279,12 @@ public class MainActivity extends AppCompatActivity {
                     data.put("Platform",platform.getText().toString());
                     data.put("Deadline", new Timestamp(date));
                     data.put("Status","Pending");
-                    fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection("Assignment").add(data)
+                    fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_branch).collection(student_semester).document("Group 1").collection("Assignment").add(data)
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull @NotNull Exception e) {
                                     Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                                    Log.d("abcd", e.getMessage());
                                 }
                             });
                     popupClassWindow.dismiss();
@@ -328,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
                 data.put("Platform",platform.getText().toString());
                 data.put("Time", new Timestamp(date));
                 data.put("Status","Pending");
-                fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection("Quiz").add(data)
+                fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_branch).collection(student_semester).document("Group 1").collection("Quiz").add(data)
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull @NotNull Exception e) {
@@ -398,7 +399,7 @@ public class MainActivity extends AppCompatActivity {
                     data.put("Platform",platform.getText().toString());
                     data.put("Time", new Timestamp(date));
                     data.put("Status","Pending");
-                    fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection("Viva").add(data)
+                    fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_branch).collection(student_semester).document("Group 1").collection("Viva").add(data)
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull @NotNull Exception e) {
