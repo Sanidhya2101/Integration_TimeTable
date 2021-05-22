@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -41,6 +43,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,12 +61,14 @@ public class MainActivity extends AppCompatActivity {
     CourseAdaptor courseAdaptor;
     FirebaseFirestore fstore;
 
+    SharedPreferences sp;
+
     String student_program = "BTech";
     String student_year = "First_Year";
     String student_semester = "Semester 1";
+    String student_branch;
 
     Date date;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +86,68 @@ public class MainActivity extends AppCompatActivity {
 
         courses_rec.setLayoutManager(ll);
         courseAdaptor = new CourseAdaptor(coursedata,this);
+
+        sp = getSharedPreferences("rollcode", 0);
+        String roll_no = sp.getString("roll", null);
+
+        //following line to be removed after integration:
+        roll_no = "200101001";
+
+        if (roll_no != null){
+            //int roll = Integer.parseInt(roll_no);
+            String branch_code = roll_no.substring(4,6);
+            switch(branch_code){
+                case "01":  student_branch = "CSE"; break;
+                case "02":  student_branch = "ECE"; break;
+                case "03":  student_branch = "ME"; break;
+                case "04":  student_branch = "CE"; break;
+                case "06":  student_branch = "BSBE"; break;
+                case "07":  student_branch = "CL"; break;
+                case "21":  student_branch = "EP"; break;
+                case "22":  student_branch = "CST"; break;
+                case "23":  student_branch = "MNC"; break;
+                case "05":  student_branch = "DD"; break;
+                case "41":  student_branch = "HSS"; break;
+                case "61":  student_branch = "DS"; break; //Data Science
+                case "54":  student_branch = "RT"; break; //Rural Technology
+                default: {student_branch = "00"; displayToast("Invalid roll number");}
+            }
+
+            //following code needs to be updated every year:
+            String year_code = roll_no.substring(0,4);
+            switch(year_code){
+                case "2001":  {student_program = "B.Tech"; student_year = "First Year"; break;}
+                case "2002":  {student_program = "B.Des"; student_year = "First Year"; break;}
+                case "1901":  {student_program = "B.Tech"; student_year = "Second Year"; break;}
+                case "1902":  {student_program = "B.Des"; student_year = "Second Year"; break;}
+                case "1801":  {student_program = "B.Tech"; student_year = "Third Year"; break;}
+                case "1802":  {student_program = "B.Des"; student_year = "Third Year"; break;}
+                case "1701":  {student_program = "B.Tech"; student_year = "Fourth Year"; break;}
+                case "1702":  {student_program = "B.Des"; student_year = "Fourth Year"; break;}
+                case "2061":  {student_program = "PhD"; student_year = "First Year"; break;}
+                case "1961":  {student_program = "PhD"; student_year = "Second Year"; break;}
+                case "1861":  {student_program = "PhD"; student_year = "Third Year"; break;}
+                case "2041":  {student_program = "M.Tech"; student_year = "First Year"; break;}
+                case "1941":  {student_program = "M.Tech"; student_year = "Second Year"; break;}
+                case "2042":  {student_program = "M.Des"; student_year = "First Year"; break;}
+                case "1942":  {student_program = "M.Des"; student_year = "Second Year"; break;}
+                case "2021":  {student_program = "M.Sc"; student_year = "First Year"; break;}
+                case "1921":  {student_program = "M.Sc"; student_year = "Second Year"; break;}
+                case "2022":  {student_program = "MA"; student_year = "First Year"; break;}
+                case "1922":  {student_program = "MA"; student_year = "Second Year"; break;}
+
+
+                default: {student_branch = "00"; displayToast("Invalid roll number");}
+            }
+
+        }
+
+        String month = new SimpleDateFormat("MM").format(new Date());
+        Log.d("Month", month);
+        switch (month){
+            case "01": case "02": case "03": case "04": case "05": case "06": { student_semester = "Semester 2"; break;}
+            case "07": case "08": case "09": case "10": case "11": case "12":{ student_semester = "Semester 1"; break;}
+        }
 
         fstore.collection("Timetable").orderBy("course_time", Query.Direction.DESCENDING)
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -120,6 +188,10 @@ public class MainActivity extends AppCompatActivity {
                 edit_event_f(view);
             }
         });
+    }
+
+    private void displayToast(String s) {
+        Toast.makeText(MainActivity.this,s,Toast.LENGTH_LONG).show();
     }
 
     private void new_event(View view) {
