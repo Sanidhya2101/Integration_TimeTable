@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@color/white"
+    android:paddingLeft="10dp"
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,15 +14,16 @@
             android:layout_width="wrap_content"
             android:id="@+id/class_icon"
             android:layout_marginLeft="10dp"
+            android:backgroundTint="#E5E5E5"
             android:src="@drawable/ic_class_icon"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_height="wrap_content"/>
         <TextView
             android:layout_toRightOf="@+id/class_icon"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="#4D5C62"
             android:text="Class"/>
     </RelativeLayout>
@@ -36,14 +38,15 @@
             android:id="@+id/assignment_icon"
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_assignment_icon"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#E5E5E5"
             android:layout_height="wrap_content"/>
         <TextView
             android:layout_toRightOf="@+id/assignment_icon"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="#4D5C62"
             android:text="Assignment"/>
     </RelativeLayout>
@@ -58,14 +61,15 @@
             android:id="@+id/quiz_icon"
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_quiz_icon"
-            android:layout_marginTop="5dp"
+            android:backgroundTint="#E5E5E5"
+            android:layout_marginTop="4dp"
             android:layout_height="wrap_content"/>
         <TextView
             android:layout_toRightOf="@+id/quiz_icon"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="#4D5C62"
             android:text="Quiz"/>
     </RelativeLayout>
@@ -80,14 +84,15 @@
             android:id="@+id/lab_icon"
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_lab_icon"
-            android:layout_marginTop="8dp"
+            android:backgroundTint="#E5E5E5"
+            android:layout_marginTop="4dp"
             android:layout_height="wrap_content"/>
         <TextView
             android:layout_toRightOf="@+id/lab_icon"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="#4D5C62"
             android:text="Lab"/>
     </RelativeLayout>
@@ -102,15 +107,16 @@
             android:layout_width="wrap_content"
             android:id="@+id/viva_icon"
             android:layout_marginLeft="10dp"
+            android:backgroundTint="#E5E5E5"
             android:src="@drawable/ic_viva_icon"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_height="wrap_content"/>
         <TextView
             android:layout_toRightOf="@+id/viva_icon"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="#4D5C62"
             android:text="Viva"/>
     </RelativeLayout>

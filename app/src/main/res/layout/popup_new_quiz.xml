@@ -21,7 +21,7 @@
             android:id="@+id/class_icon"
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_quiz_icon"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_height="wrap_content"
             app:tint="@color/white" />
         <TextView
@@ -29,9 +29,9 @@
             android:layout_marginLeft="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="#fff"
-            android:text="Add New Quiz"/>
+            android:text="Add a new quiz"/>
 
     </RelativeLayout>
     <RelativeLayout
@@ -48,6 +48,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/class_code_icon"
                 android:layout_marginLeft="10dp"
+                app:tint="#4D5C62"
                 android:src="@drawable/ic_class_icon"
                 android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"/>

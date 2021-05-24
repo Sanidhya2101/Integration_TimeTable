@@ -20,8 +20,8 @@
             android:layout_width="wrap_content"
             android:id="@+id/class_icon"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_quiz_icon"
-            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_viva_icon"
+            android:layout_marginTop="4dp"
             android:layout_height="wrap_content"
             app:tint="@color/white" />
         <TextView
@@ -29,9 +29,9 @@
             android:layout_marginLeft="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="#fff"
-            android:text="Add New Viva"/>
+            android:text="Add a new viva"/>
 
     </RelativeLayout>
     <RelativeLayout
@@ -47,6 +47,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:id="@+id/class_code_icon"
+                app:tint="#4D5C62"
                 android:layout_marginLeft="10dp"
                 android:src="@drawable/ic_class_icon"
                 android:layout_marginTop="8dp"

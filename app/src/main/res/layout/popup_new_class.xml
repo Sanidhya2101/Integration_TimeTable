@@ -9,13 +9,15 @@
         android:layout_width="match_parent"
         android:id="@+id/top"
         android:background="#649CFF"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
         android:layout_height="wrap_content">
         <ImageView
             android:layout_width="wrap_content"
             android:id="@+id/class_icon"
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_class_icon"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_height="wrap_content"
             app:tint="@color/white" />
         <TextView
@@ -23,9 +25,9 @@
             android:layout_marginLeft="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="#fff"
-            android:text="Add a new Class"/>
+            android:text="Add a new class"/>
 
     </RelativeLayout>
 
@@ -33,6 +35,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_below="@+id/top"
+        android:layout_marginTop="30dp"
         android:layout_height="300dp">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -41,26 +44,30 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:id="@+id/class_code_icon"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="30dp"
                 android:src="@drawable/ic_class_icon"
                 android:layout_marginTop="8dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:tint="#4D5C62" />
             <TextView
                 android:layout_toRightOf="@+id/class_code_icon"
                 android:layout_marginLeft="30dp"
                 android:layout_width="wrap_content"
                 android:id="@+id/textcoursecode"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textColor="#4D5C62"
                 android:text="Course Code"/>
             <EditText
                 android:layout_toRightOf="@+id/textcoursecode"
                 android:layout_marginLeft="30dp"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:textColor="#000"/>
+                android:textAlignment="center"
+                android:background="@drawable/rounded_border_edittext"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:textSize="20sp"
+                android:textColor="#000"
+                android:gravity="center_horizontal"/>
         </RelativeLayout>
 
 
@@ -79,7 +86,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:textColor="@color/white"
-            android:backgroundTint="#649CFF"
+            android:backgroundTint="#3D83FF"
             android:text="Create Class"/>
 
     </RelativeLayout>

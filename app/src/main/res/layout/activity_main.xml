@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/design_default_color_primary"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/white"
     xmlns:tools="http://schemas.android.com/tools">
     <ScrollView
         android:layout_width="325.4dp"
@@ -35,17 +36,7 @@
         app:tint="#FFF"
         android:src="@drawable/ic_add" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|right"
-    android:layout_marginRight="16dp"
-    android:layout_marginBottom="150dp"
-    app:fabSize="normal"
-    android:id="@+id/edit_event"
-    android:backgroundTint="#FFCB11"
-    app:tint="#FFF"
-    android:src="@drawable/ic_edit" />
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
