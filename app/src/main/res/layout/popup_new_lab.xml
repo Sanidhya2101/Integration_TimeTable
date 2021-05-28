@@ -8,14 +8,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/top"
-        android:background="#1A2D35"
+        android:background="#649CFF"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
         android:layout_height="wrap_content">
         <ImageView
             android:layout_width="wrap_content"
             android:id="@+id/class_icon"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_class_icon"
-            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_lab_icon"
+            android:layout_marginTop="4dp"
             android:layout_height="wrap_content"
             app:tint="@color/white" />
         <TextView
@@ -23,14 +25,17 @@
             android:layout_marginLeft="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="#fff"
-            android:text="Edit Class"/>
+            android:text="Add a new lab"/>
 
     </RelativeLayout>
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_below="@+id/top"
+        android:layout_marginTop="30dp"
         android:layout_height="300dp">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -39,28 +44,34 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:id="@+id/class_code_icon"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="30dp"
                 android:src="@drawable/ic_class_icon"
                 android:layout_marginTop="8dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:tint="#4D5C62" />
             <TextView
                 android:layout_toRightOf="@+id/class_code_icon"
                 android:layout_marginLeft="30dp"
                 android:layout_width="wrap_content"
                 android:id="@+id/textcoursecode"
                 android:layout_height="wrap_content"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textColor="#4D5C62"
                 android:text="Course Code"/>
             <EditText
                 android:layout_toRightOf="@+id/textcoursecode"
                 android:layout_marginLeft="30dp"
-                android:id="@+id/class_code"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:textColor="#000"/>
+                android:textAlignment="center"
+                android:background="@drawable/rounded_border_edittext"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:textSize="20sp"
+                android:textColor="#000"
+                android:gravity="center_horizontal" />
         </RelativeLayout>
+
+
+
         <ListView
             android:layout_width="300dp"
             android:layout_below="@+id/edit_course"
@@ -70,13 +81,13 @@
             android:layout_centerHorizontal="true"/>
         <Button
             android:layout_width="300dp"
-            android:id="@+id/update_class"
+            android:id="@+id/create_new_lab"
             android:layout_height="50dp"
-            android:backgroundTint="#1A2D35"
             android:layout_alignParentBottom="true"
-            android:textColor="@color/white"
             android:layout_centerHorizontal="true"
-            android:text="Update Class"/>
+            android:textColor="@color/white"
+            android:backgroundTint="#3D83FF"
+            android:text="Create Lab"/>
 
     </RelativeLayout>
 

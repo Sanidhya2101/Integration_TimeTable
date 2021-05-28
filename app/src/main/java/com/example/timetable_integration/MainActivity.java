@@ -56,7 +56,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    FloatingActionButton add_new_event,edit_event;
+    FloatingActionButton add_new_event;
     RecyclerView courses_rec;
     ArrayList<Course> coursedata;
     CourseAdaptor courseAdaptor;
@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         add_new_event=(FloatingActionButton) findViewById(R.id.add_new_event);
-        edit_event=(FloatingActionButton) findViewById(R.id.edit_event);
         fstore = FirebaseFirestore.getInstance();
         courses_rec = findViewById(R.id.course_class);
         coursedata = new ArrayList<>();
@@ -358,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
                 //  new_class(view);
                 LayoutInflater inflater = (LayoutInflater)
                         getSystemService(LAYOUT_INFLATER_SERVICE);
-                View popupclassView = inflater.inflate(R.layout.popup_new_class, null);
+                View popupclassView = inflater.inflate(R.layout.popup_new_lab, null);
 
                 // create the popup window
                 int width_class = LinearLayout.LayoutParams.MATCH_PARENT;
