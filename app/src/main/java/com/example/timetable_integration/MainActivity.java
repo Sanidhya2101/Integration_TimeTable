@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -182,12 +183,12 @@ public class MainActivity extends AppCompatActivity {
                 new_event(view);
             }
         });
-        edit_event.setOnClickListener(new View.OnClickListener() {
+        /*edit_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 edit_event_f(view);
             }
-        });
+        });*/
     }
 
     private void displayToast(String s) {
@@ -264,10 +265,15 @@ public class MainActivity extends AppCompatActivity {
 
                 Map<String, Object> data = new HashMap<>();
 
-                Button time_selector = popupclassView.findViewById(R.id.new_assignment_deadline);
-                final long[] time = new long[1];
+                TextView time_selector = popupclassView.findViewById(R.id.new_date);
                 time_selector.setOnClickListener(view2 -> {
-                    showDateTimePicker(popupclassView.getContext());
+                    showDateTimePicker(popupclassView.getContext(),popupclassView);
+                });
+                ImageView deleteDate = popupclassView.findViewById(R.id.date_delete_button);
+                deleteDate.setOnClickListener(v -> {
+                    date = null;
+                    time_selector.setText("Select Deadline");
+                    v.setVisibility(View.GONE);
                 });
                 Button update_time = popupclassView.findViewById(R.id.add_assignment);
                 EditText  code = popupclassView.findViewById(R.id.new_assignment_code);
@@ -279,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
                     data.put("Platform",platform.getText().toString());
                     data.put("Deadline", new Timestamp(date));
                     data.put("Status","Pending");
-                    fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_branch).collection(student_semester).document("Group 1").collection("Assignment").add(data)
+                    fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection(student_branch).document("Group 1").collection("Assignment").add(data)
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull @NotNull Exception e) {
@@ -312,10 +318,15 @@ public class MainActivity extends AppCompatActivity {
             // which view you pass in doesn't matter, it is only used for the window tolken
             popupClassWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
 
-            Button time_selector = popupclassView.findViewById(R.id.new_quiz_time_button);
-            final long[] time = new long[1];
+            TextView time_selector = popupclassView.findViewById(R.id.new_date);
             time_selector.setOnClickListener(view2 -> {
-                showDateTimePicker(popupclassView.getContext());
+                showDateTimePicker(popupclassView.getContext(),popupclassView);
+            });
+            ImageView deleteDate = popupclassView.findViewById(R.id.date_delete_button);
+            deleteDate.setOnClickListener(v -> {
+                date = null;
+                time_selector.setText("Select Date and Time");
+                v.setVisibility(View.GONE);
             });
             Button update_time = popupclassView.findViewById(R.id.add_quiz);
             EditText  code = popupclassView.findViewById(R.id.new_quiz_code);
@@ -329,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
                 data.put("Platform",platform.getText().toString());
                 data.put("Time", new Timestamp(date));
                 data.put("Status","Pending");
-                fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_branch).collection(student_semester).document("Group 1").collection("Quiz").add(data)
+                fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection(student_branch).document("Group 1").collection("Quiz").add(data)
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull @NotNull Exception e) {
@@ -383,9 +394,15 @@ public class MainActivity extends AppCompatActivity {
 
                 Map<String, Object> data = new HashMap<>();
 
-                Button time_selector = popupclassView.findViewById(R.id.new_viva_time_button);
+                Button time_selector = popupclassView.findViewById(R.id.new_date);
                 time_selector.setOnClickListener(view2 -> {
-                    showDateTimePicker(popupclassView.getContext());
+                    showDateTimePicker(popupclassView.getContext(),popupclassView);
+                });
+                ImageView deleteDate = popupclassView.findViewById(R.id.date_delete_button);
+                deleteDate.setOnClickListener(v -> {
+                    date = null;
+                    time_selector.setText("Select Date and Time");
+                    v.setVisibility(View.GONE);
                 });
                 Button update_time = popupclassView.findViewById(R.id.add_viva);
                 EditText  code = popupclassView.findViewById(R.id.new_viva_code);
@@ -399,7 +416,7 @@ public class MainActivity extends AppCompatActivity {
                     data.put("Platform",platform.getText().toString());
                     data.put("Time", new Timestamp(date));
                     data.put("Status","Pending");
-                    fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_branch).collection(student_semester).document("Group 1").collection("Viva").add(data)
+                    fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection(student_branch).document("Group 1").collection("Viva").add(data)
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull @NotNull Exception e) {
@@ -420,7 +437,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    private void edit_event_f(View view) {
+    /*private void edit_event_f(View view) {
         //  add_new_event.hide();
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -554,9 +571,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
-    public void showDateTimePicker(Context context) {
+    public void showDateTimePicker(Context context, View popup) {
         Calendar calendar;
         calendar = Calendar.getInstance();
         new DatePickerDialog(context, (view, year, monthOfYear, dayOfMonth) -> {
@@ -564,7 +581,13 @@ public class MainActivity extends AppCompatActivity {
             new TimePickerDialog(context, (view1, hourOfDay, minute) -> {
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
-                Log.v("abcd", "The chosen one " + calendar.getTime());
+                TextView update_time = popup.findViewById(R.id.new_date);
+                String d = calendar.getTime().toString();
+                update_time.setText(d.substring(11,16) + ", "+ d.substring(0,10) +","+ d.substring(29,34));
+                //update_time.setText(calendar.MINUTE + calendar.HOUR_OF_DAY +calendar.DAY_OF_MONTH + calendar.MONTH + calendar.YEAR);
+                ImageView deleteDate = popup.findViewById(R.id.date_delete_button);
+                deleteDate.setVisibility(View.VISIBLE);
+                Log.v("abcd", "The chosen one " + calendar.getTime()); //16,29
                 date = calendar.getTime();
             }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)).show();

@@ -1,161 +1,288 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:id="@+id/top"
-        android:background="#1A2D35"
-        android:layout_height="wrap_content"
-        android:paddingBottom="12dp"
-        android:paddingTop="12dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:id="@+id/class_icon"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_quiz_icon"
-            android:layout_marginTop="8dp"
-            android:layout_height="wrap_content"
-            app:tint="@color/white" />
-        <TextView
-            android:layout_toRightOf="@+id/class_icon"
-            android:layout_marginLeft="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="#fff"
-            android:text="Add New Quiz"/>
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_below="@+id/top"
-        android:layout_height="450dp"
-        android:layout_marginTop="16dp">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:id="@+id/edit_course"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp">
+            android:id="@+id/top"
+            android:background="@drawable/add_new_header_bg"
+            android:layout_height="64dp"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp"
+            >
             <ImageView
                 android:layout_width="wrap_content"
-                android:id="@+id/class_code_icon"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_class_icon"
-                android:layout_marginTop="8dp"
-                android:layout_height="wrap_content"/>
+                android:id="@+id/class_icon"
+                android:layout_marginLeft="24dp"
+                android:src="@drawable/ic_resource_class"
+                android:layout_height="match_parent"
+                app:tint="@color/white" />
             <TextView
-                android:layout_toRightOf="@+id/class_code_icon"
-                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@+id/class_icon"
+                android:layout_marginLeft="32dp"
                 android:layout_width="wrap_content"
-                android:id="@+id/textcoursecode"
-                android:layout_height="wrap_content"
-                android:textSize="25sp"
-                android:textColor="#4D5C62"
-                android:text="Course Code:"/>
-            <EditText
-                android:layout_toRightOf="@+id/textcoursecode"
-                android:layout_marginLeft="8dp"
-                android:id="@+id/new_quiz_code"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="#000"
-                android:layout_marginRight="32dp"/>
+                android:layout_height="match_parent"
+                android:textSize="14sp"
+                android:textColor="#fff"
+                android:text="Add a new Quiz"
+                android:fontFamily="@font/montserrat"
+                android:textFontWeight="700"
+                android:gravity="center_vertical"/>
+
         </RelativeLayout>
-        <LinearLayout
-            android:layout_width="300dp"
-            android:layout_below="@+id/edit_course"
-            android:layout_height="wrap_content"
-            android:id="@+id/slot_list"
-            android:layout_marginBottom="50dp"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:background="@color/white">
+
             <LinearLayout
+                android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp">
-                <TextView
+                android:id="@+id/slot_list"
+                android:layout_marginBottom="50dp"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical">
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:textSize="20sp"
-                    android:textColor="#4D5C62"/>
-                <EditText
+                    android:id="@+id/edit_course"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/class_code_icon"
+                        android:src="@drawable/ic_resource_class"
+                        android:layout_marginTop="2dp"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:layout_toRightOf="@+id/class_code_icon"
+                        android:layout_marginLeft="24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="14sp"
+                        android:textColor="#4D5C62"
+                        android:text="Course Code"
+                        android:fontFamily="@font/montserrat"
+                        android:textFontWeight="400"
+                        android:gravity="center_vertical"
+                        />
+                    <EditText
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="8dp"
+                        android:id="@+id/new_quiz_code"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:textSize="15sp"
+                        android:textColor="#4D5C62"
+                        android:background="@drawable/edit_text_bg"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/montserrat"
+                        android:textFontWeight="500"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="eg. MA 101" />
+                </RelativeLayout>
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/new_quiz_name"
-                    android:textColor="#000"
-                    android:textSize="20sp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp">
-                <TextView
+                    android:layout_height="60dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/class_code_icon_1"
+                        android:src="@drawable/ic_resource_class"
+                        android:layout_marginTop="2dp"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:layout_toRightOf="@+id/class_code_icon_1"
+                        android:layout_marginLeft="24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="14sp"
+                        android:textColor="#4D5C62"
+                        android:text="Name"
+                        android:fontFamily="@font/montserrat"
+                        android:textFontWeight="400"
+                        android:gravity="center_vertical"
+                        />
+                    <EditText
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="8dp"
+                        android:id="@+id/new_quiz_name"
+                        android:layout_width="140dp"
+                        android:layout_height="match_parent"
+                        android:textSize="15sp"
+                        android:textColor="#4D5C62"
+                        android:background="@drawable/edit_text_bg"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/montserrat"
+                        android:textFontWeight="500"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="eg. Tutorial 5"/>
+                </RelativeLayout>
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Duration"
-                    android:textSize="20sp"
-                    android:textColor="#4D5C62"/>
-                <EditText
+                    android:layout_height="60dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/class_code_icon_3"
+                        android:src="@drawable/ic_resource_class"
+                        android:layout_marginTop="2dp"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:layout_toRightOf="@+id/class_code_icon_3"
+                        android:layout_marginLeft="24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="14sp"
+                        android:textColor="#4D5C62"
+                        android:text="Duration"
+                        android:fontFamily="@font/montserrat"
+                        android:textFontWeight="400"
+                        android:gravity="center_vertical"
+                        />
+                    <EditText
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="8dp"
+                        android:id="@+id/new_quiz_duration"
+                        android:layout_width="140dp"
+                        android:layout_height="match_parent"
+                        android:textSize="15sp"
+                        android:textColor="#4D5C62"
+                        android:background="@drawable/edit_text_bg"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/montserrat"
+                        android:textFontWeight="500"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="eg. 1 hour"/>
+                </RelativeLayout>
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/new_quiz_duration"
-                    android:textColor="#000"
-                    android:textSize="20sp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp">
-                <TextView
+                    android:layout_height="60dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    >
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/class_code_icon_2"
+                        android:src="@drawable/ic_resource_class"
+                        android:layout_marginTop="2dp"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:layout_toRightOf="@+id/class_code_icon_2"
+                        android:layout_marginLeft="24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textSize="14sp"
+                        android:textColor="#4D5C62"
+                        android:text="Platform"
+                        android:fontFamily="@font/montserrat"
+                        android:textFontWeight="400"
+                        android:gravity="center_vertical"
+                        />
+                    <EditText
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="8dp"
+                        android:id="@+id/new_quiz_platform"
+                        android:layout_width="140dp"
+                        android:layout_height="match_parent"
+                        android:textSize="15sp"
+                        android:textColor="#4D5C62"
+                        android:background="@drawable/edit_text_bg"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/montserrat"
+                        android:textFontWeight="500"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="eg. MS Team"/>
+                </RelativeLayout>
+
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Platform"
-                    android:textSize="20sp"
-                    android:textColor="#4D5C62"/>
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/new_quiz_platform"
-                    android:textColor="#000"/>
+                    android:layout_height="72dp"
+                    android:background="#ECF3FF"
+                    android:layout_marginTop="12dp">
+                    <TextView
+                        android:id="@+id/due_on_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Date"
+                        android:gravity="center_vertical"
+                        android:padding="12dp"
+                        android:fontFamily="@font/montserrat"
+                        android:textFontWeight="400"
+                        android:textSize="12sp"
+                        android:background="@drawable/right_side_border"
+                        android:textColor="#1A2D35"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_toRightOf="@id/due_on_text"
+                        android:text="Select Date and Time"
+                        android:fontFamily="@font/montserrat"
+                        android:textFontWeight="600"
+                        android:id="@+id/new_date"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="23dp"
+                        android:textColor="#1A2D35"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_delete"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/date_delete_button"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                </RelativeLayout>
+
             </LinearLayout>
             <Button
-                android:layout_width="300dp"
-                android:id="@+id/new_quiz_time_button"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#2196F3"
+                android:layout_width="match_parent"
+                android:id="@+id/add_quiz"
+                android:layout_height="72dp"
+                android:backgroundTint="#3D83FF"
                 android:layout_alignParentBottom="true"
                 android:textColor="@color/white"
                 android:layout_centerHorizontal="true"
-                android:text="Select Date and Time"
+                android:text="Add Quiz"
                 android:textAllCaps="false"
-                android:textSize="16sp"
-                android:padding="8dp"
-                android:layout_marginTop="8dp"/>
-        </LinearLayout>
-        <Button
-            android:layout_width="300dp"
-            android:id="@+id/add_quiz"
-            android:layout_height="50dp"
-            android:backgroundTint="#1A2D35"
-            android:layout_alignParentBottom="true"
-            android:textColor="@color/white"
-            android:layout_centerHorizontal="true"
-            android:text="Add Quiz"/>
+                android:textSize="15sp"
+                android:textFontWeight="900"
+                android:fontFamily="@font/roboto_black"
+                style="@style/no_corner_button"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginBottom="16dp"
+                />
 
-    </RelativeLayout>
+        </RelativeLayout>
+
     </LinearLayout>
 
 </ScrollView>

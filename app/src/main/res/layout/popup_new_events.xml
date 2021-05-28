@@ -1,50 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/black_border"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="24dp"
+    android:elevation = "2dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
         android:id="@+id/select_class"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
         <ImageView
             android:layout_width="wrap_content"
             android:id="@+id/class_icon"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_class_icon"
-            android:layout_marginTop="8dp"
-            android:layout_height="wrap_content"/>
+            android:src="@drawable/ic_resource_class"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="2dp"
+            app:tint="#649CFF"/>
         <TextView
             android:layout_toRightOf="@+id/class_icon"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="#4D5C62"
-            android:text="Class"/>
+            style="@style/new_event_list_item"
+            android:text="Class"
+            android:gravity="center_vertical" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
         android:id="@+id/select_assignment"
         android:layout_below="@+id/select_class"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_marginRight="10dp">
         <ImageView
             android:layout_width="wrap_content"
             android:id="@+id/assignment_icon"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_assignment_icon"
-            android:layout_marginTop="8dp"
-            android:layout_height="wrap_content"/>
+            android:src="@drawable/ic_assignment"
+            android:layout_marginTop="2dp"
+            android:layout_height="wrap_content"
+            app:tint="#649CFF"
+            />
         <TextView
             android:layout_toRightOf="@+id/assignment_icon"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="#4D5C62"
+            style="@style/new_event_list_item"
             android:text="Assignment"/>
     </RelativeLayout>
     <RelativeLayout
@@ -52,43 +61,46 @@
         android:layout_marginTop="20dp"
         android:id="@+id/select_quiz"
         android:layout_below="@+id/select_assignment"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
         <ImageView
             android:layout_width="wrap_content"
             android:id="@+id/quiz_icon"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_quiz_icon"
-            android:layout_marginTop="5dp"
-            android:layout_height="wrap_content"/>
+            android:src="@drawable/ic_quiz"
+            android:layout_marginTop="2dp"
+            android:layout_height="wrap_content"
+            app:tint="#649CFF"/>
         <TextView
             android:layout_toRightOf="@+id/quiz_icon"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="#4D5C62"
-            android:text="Quiz"/>
+            style="@style/new_event_list_item"
+            android:text="Quiz"
+            />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
         android:id="@+id/select_lab"
         android:layout_below="@+id/select_quiz"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
         <ImageView
             android:layout_width="wrap_content"
             android:id="@+id/lab_icon"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_lab_icon"
-            android:layout_marginTop="8dp"
-            android:layout_height="wrap_content"/>
+            android:src="@drawable/ic_lab"
+            android:layout_marginTop="2dp"
+            android:layout_height="wrap_content"
+            app:tint="#649CFF"/>
         <TextView
             android:layout_toRightOf="@+id/lab_icon"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="#4D5C62"
+            style="@style/new_event_list_item"
             android:text="Lab"/>
     </RelativeLayout>
     <RelativeLayout
@@ -97,21 +109,22 @@
         android:id="@+id/select_viva"
         android:layout_marginBottom="20dp"
         android:layout_below="@+id/select_lab"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
         <ImageView
             android:layout_width="wrap_content"
             android:id="@+id/viva_icon"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_viva_icon"
-            android:layout_marginTop="8dp"
-            android:layout_height="wrap_content"/>
+            android:src="@drawable/ic_viva"
+            android:layout_marginTop="2dp"
+            android:layout_height="wrap_content"
+            app:tint="#649CFF"/>
         <TextView
             android:layout_toRightOf="@+id/viva_icon"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="#4D5C62"
+            style="@style/new_event_list_item"
             android:text="Viva"/>
     </RelativeLayout>
 

@@ -3,21 +3,50 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/design_default_color_primary"
+    android:background="@color/white"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
+
     <ScrollView
-        android:layout_width="325.4dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="18.11dp"
-        android:layout_marginLeft="21.6dp">
-    
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/course_class"
-        android:layout_width="325dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        tools:listitem="@layout/class_list"/>
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="28dp">
+
+        <LinearLayout
+            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today"
+                android:textFontWeight="600"
+                android:textSize="18sp"
+                android:textColor="#01161E"
+                android:fontFamily="@font/montserrat"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="24 May"
+                android:textFontWeight="500"
+                android:textSize="14sp"
+                android:textColor="#01161E"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/montserrat"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/course_class"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                tools:listitem="@layout/class_list"/>
+
+        </LinearLayout>
 
     </ScrollView>
 
@@ -35,7 +64,7 @@
         app:tint="#FFF"
         android:src="@drawable/ic_add" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+ <!--   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|right"
@@ -45,7 +74,7 @@
     android:id="@+id/edit_event"
     android:backgroundTint="#FFCB11"
     app:tint="#FFF"
-    android:src="@drawable/ic_edit" />
+    android:src="@drawable/ic_edit" />-->
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
