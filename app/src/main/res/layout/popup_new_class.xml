@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:layout_height="wrap_content">
     <RelativeLayout
@@ -15,28 +15,32 @@
         <ImageView
             android:layout_width="wrap_content"
             android:id="@+id/class_icon"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="19dp"
             android:src="@drawable/ic_class_icon"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="5dp"
             android:layout_height="wrap_content"
             app:tint="@color/white" />
         <TextView
             android:layout_toRightOf="@+id/class_icon"
             android:layout_marginLeft="30dp"
+            android:layout_marginTop="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:textColor="#fff"
+            android:textColor="@color/white"
             android:text="Add a new class"/>
 
     </RelativeLayout>
+
+
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_below="@+id/top"
         android:layout_marginTop="30dp"
-        android:layout_height="300dp">
+        android:layout_height="wrap_content">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:id="@+id/edit_course"
@@ -57,37 +61,336 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textColor="#4D5C62"
-                android:text="Course Code"/>
+                android:text="Course Code"
+                android:layout_marginTop="5dp"/>
             <EditText
                 android:layout_toRightOf="@+id/textcoursecode"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="20dp"
                 android:textAlignment="center"
                 android:background="@drawable/rounded_border_edittext"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:textSize="20sp"
                 android:textColor="#000"
-                android:gravity="center_horizontal"/>
+                android:gravity="center"
+                android:layout_marginRight="10dp"
+                android:id="@+id/course_code"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/edit_name_slot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_course"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="-2dp"
+            android:layout_marginRight="-2dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/class_name_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_class_icon"
+                app:tint="#4D5C62" />
+
+            <TextView
+                android:id="@+id/textcoursename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/class_name_icon"
+                android:text="Name"
+                android:textColor="#4D5C62"
+                android:textSize="20sp" />
+
+            <EditText
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="88dp"
+                android:layout_toRightOf="@+id/textcoursename"
+                android:background="@drawable/rounded_border_edittext"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:id="@+id/course_name"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/edit_plateform_slot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_name_slot"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="-2dp"
+            android:layout_marginRight="-2dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/class_plateform_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_class_icon"
+                app:tint="#4D5C62" />
+
+            <TextView
+                android:id="@+id/textcourseplateform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/class_plateform_icon"
+                android:text="Plateform"
+                android:textColor="#4D5C62"
+                android:textSize="20sp" />
+
+            <EditText
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="50dp"
+                android:layout_toRightOf="@+id/textcourseplateform"
+                android:background="@drawable/rounded_border_edittext"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:id="@+id/course_plateform"/>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/edit_time_slot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_plateform_slot"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="-2dp"
+            android:layout_marginRight="-2dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/class_time_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_class_icon"
+                app:tint="#4D5C62" />
+
+            <TextView
+                android:id="@+id/textcoursetime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/class_time_icon"
+                android:text="Time Slot"
+                android:textColor="#4D5C62"
+                android:textSize="20sp" />
+
+            <EditText
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="55dp"
+                android:layout_toRightOf="@+id/textcoursetime"
+                android:background="@drawable/rounded_border_edittext"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:id="@+id/course_time"/>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/edit_day_slot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_time_slot"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="-2dp"
+            android:layout_marginRight="-2dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/class_day_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_class_icon"
+                app:tint="#4D5C62" />
+
+            <TextView
+                android:id="@+id/textcourseday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/class_day_icon"
+                android:text="Days"
+                android:textColor="#4D5C62"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_below="@id/textcourseday"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="30dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="25dp"
+                    android:text="M"
+                    android:textSize="17sp"
+                    android:textColor="#99A2A5"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/Monday"
+                    android:gravity="center"/>
+
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="25dp"
+                    android:text="T"
+                    android:textSize="17sp"
+                    android:textColor="#99A2A5"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/Tuesday"
+                    android:gravity="center"/>
+
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="25dp"
+                    android:text="W"
+                    android:textSize="17sp"
+                    android:textColor="#99A2A5"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/Wednesday"
+                    android:gravity="center"/>
+
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="25dp"
+                    android:text="T"
+                    android:textSize="17sp"
+                    android:textColor="#99A2A5"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/Thursday"
+                    android:gravity="center"/>
+
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="25dp"
+                    android:text="F"
+                    android:textSize="17sp"
+                    android:textColor="#99A2A5"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/Friday"
+                    android:gravity="center"/>
+
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="25dp"
+                    android:text="S"
+                    android:textSize="17sp"
+                    android:textColor="#99A2A5"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/Saturday"
+                    android:gravity="center"/>
+
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="25dp"
+                    android:text="S"
+                    android:textSize="17sp"
+                    android:textColor="#99A2A5"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/Sunday"
+                    android:gravity="center"/>
+
+
+            </LinearLayout>
+
+
+
         </RelativeLayout>
 
 
 
-        <ListView
-            android:layout_width="300dp"
-            android:layout_below="@+id/edit_course"
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/slot_list"
-            android:layout_marginBottom="50dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_below="@+id/edit_course"
+            android:layout_marginTop="10dp"
+            android:id="@+id/slot_recycler"
+            android:visibility="visible"
+            android:layout_marginLeft="22dp"/>
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/slot_recycler"
+            android:text="+ add a class slot"
+            android:layout_marginLeft="48dp"
+            android:layout_marginTop="40dp"
+            android:id="@+id/add_new_slot"
+            android:visibility="visible"/>
+
+
         <Button
             android:layout_width="300dp"
             android:id="@+id/create_new_class"
             android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
+            android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"
+            android:layout_below="@+id/add_new_slot"
             android:textColor="@color/white"
             android:backgroundTint="#3D83FF"
-            android:text="Create Class"/>
+            android:text="Create Class"
+            android:visibility="visible"/>
+
+
+        <Button
+            android:layout_width="300dp"
+            android:id="@+id/create_new_slot"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/edit_day_slot"
+            android:textColor="@color/white"
+            android:backgroundTint="#3D83FF"
+            android:visibility="gone"
+            android:text="Add Slot"/>
+
 
     </RelativeLayout>
 

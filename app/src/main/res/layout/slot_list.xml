@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="325dp"
+    android:layout_height="70dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:backgroundTint="#ECF3FF"
+    android:layout_marginBottom="16dp"
+    android:elevation="12dp">
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_marginLeft="17dp"
+        android:text="Slot 1"
+        android:layout_marginTop="27dp"
+        android:textSize="12sp"
+        android:textColor="#1A2D35"
+        android:id="@+id/Slot_No"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="60dp"
+        android:background="#E6E8E9"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:textSize="14sp"
+        android:layout_marginLeft="80dp"
+        android:text="2pm Wednesday"
+        android:layout_marginTop="26dp"
+        android:textColor="#1A2D35"
+        android:id="@+id/slot_time"/>
+
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="295dp"
+        android:src="@drawable/minus"
+        android:layout_marginTop="27dp"
+        android:id="@+id/slot_minus"/>
+
+
+</androidx.cardview.widget.CardView>
