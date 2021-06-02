@@ -992,7 +992,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Map<String, Object> data = new HashMap<>();
 
-                Button time_selector = popupclassView.findViewById(R.id.new_date);
+                TextView time_selector = popupclassView.findViewById(R.id.new_date);
                 time_selector.setOnClickListener(view2 -> {
                     showDateTimePicker(popupclassView.getContext(),popupclassView);
                 });
