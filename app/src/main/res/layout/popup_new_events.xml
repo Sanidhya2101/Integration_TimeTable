@@ -24,7 +24,7 @@
             app:tint="#649CFF"/>
         <TextView
             android:layout_toRightOf="@+id/class_icon"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="38dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/new_event_list_item"
@@ -50,7 +50,7 @@
             />
         <TextView
             android:layout_toRightOf="@+id/assignment_icon"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="36dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/new_event_list_item"
@@ -97,7 +97,7 @@
             app:tint="#649CFF"/>
         <TextView
             android:layout_toRightOf="@+id/lab_icon"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="42dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/new_event_list_item"
@@ -121,7 +121,7 @@
             app:tint="#649CFF"/>
         <TextView
             android:layout_toRightOf="@+id/viva_icon"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="37dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/new_event_list_item"

@@ -564,15 +564,40 @@ public class MainActivity extends AppCompatActivity {
                     time_selector.setText("Select Deadline");
                     v.setVisibility(View.GONE);
                 });
-                Button update_time = popupclassView.findViewById(R.id.add_assignment);
+
+                final String[] tags = {""};
+                TextView add_tags_button = popupclassView.findViewById(R.id.add_tags);
+                add_tags_button.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
+                    @Override
+                    public void onClick(View view1) {
+                        LinearLayout l = popupclassView.findViewById(R.id.tags);
+                        EditText e = popupclassView.findViewById(R.id.tag_edit_text);
+                        String s = e.getText().toString();
+                        tags[0] = tags[0] + "," + s;
+                        e.setText("");
+                        TextView t = new TextView(popupclassView.getContext());
+                        t.setText(s+"   ");
+                        t.setLayoutParams(new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                        t.setTextAppearance(R.style.tag);
+
+                        l.addView(t);
+                    }
+                });
+
+                Button add_assignment = popupclassView.findViewById(R.id.add_assignment);
                 EditText  code = popupclassView.findViewById(R.id.new_assignment_code);
                 EditText  name = popupclassView.findViewById(R.id.new_assignment_name);
                 EditText  platform = popupclassView.findViewById(R.id.new_assignment_platform);
-                update_time.setOnClickListener(v1 -> {
+                add_assignment.setOnClickListener(v1 -> {
+                    Log.d("abcd", tags[0]);
                     data.put("Code",code.getText().toString());
                     data.put("Name",name.getText().toString());
                     data.put("Platform",platform.getText().toString());
                     data.put("Deadline", new Timestamp(date));
+                    data.put("tags",tags[0]);
                     data.put("Status","Pending");
                     fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection(student_branch).document("Group 1").collection("Assignment").add(data)
                             .addOnFailureListener(new OnFailureListener() {
@@ -617,6 +642,29 @@ public class MainActivity extends AppCompatActivity {
                 time_selector.setText("Select Date and Time");
                 v.setVisibility(View.GONE);
             });
+
+            final String[] tags = {""};
+            TextView add_tags_button = popupclassView.findViewById(R.id.add_tags);
+            add_tags_button.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.M)
+                @Override
+                public void onClick(View view1) {
+                    LinearLayout l = popupclassView.findViewById(R.id.tags);
+                    EditText e = popupclassView.findViewById(R.id.tag_edit_text);
+                    String s = e.getText().toString();
+                    tags[0] = tags[0] + "," + s;
+                    e.setText("");
+                    TextView t = new TextView(popupclassView.getContext());
+                    t.setText(s+"   ");
+                    t.setLayoutParams(new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT));
+                    t.setTextAppearance(R.style.tag);
+
+                    l.addView(t);
+                }
+            });
+
             Button update_time = popupclassView.findViewById(R.id.add_quiz);
             EditText  code = popupclassView.findViewById(R.id.new_quiz_code);
             EditText  name = popupclassView.findViewById(R.id.new_quiz_name);
@@ -628,6 +676,7 @@ public class MainActivity extends AppCompatActivity {
                 data.put("Duration",duration.getText().toString());
                 data.put("Platform",platform.getText().toString());
                 data.put("Time", new Timestamp(date));
+                data.put("tags",tags[0]);
                 data.put("Status","Pending");
                 fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection(student_branch).document("Group 1").collection("Quiz").add(data)
                         .addOnFailureListener(new OnFailureListener() {
@@ -1002,6 +1051,29 @@ public class MainActivity extends AppCompatActivity {
                     time_selector.setText("Select Date and Time");
                     v.setVisibility(View.GONE);
                 });
+
+                final String[] tags = {""};
+                TextView add_tags_button = popupclassView.findViewById(R.id.add_tags);
+                add_tags_button.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
+                    @Override
+                    public void onClick(View view1) {
+                        LinearLayout l = popupclassView.findViewById(R.id.tags);
+                        EditText e = popupclassView.findViewById(R.id.tag_edit_text);
+                        String s = e.getText().toString();
+                        tags[0] = tags[0] + "," + s;
+                        e.setText("");
+                        TextView t = new TextView(popupclassView.getContext());
+                        t.setText(s+"   ");
+                        t.setLayoutParams(new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                        t.setTextAppearance(R.style.tag);
+
+                        l.addView(t);
+                    }
+                });
+
                 Button update_time = popupclassView.findViewById(R.id.add_viva);
                 EditText  code = popupclassView.findViewById(R.id.new_viva_code);
                 EditText  name = popupclassView.findViewById(R.id.new_viva_name);
@@ -1014,6 +1086,7 @@ public class MainActivity extends AppCompatActivity {
                     data.put("Platform",platform.getText().toString());
                     data.put("Time", new Timestamp(date));
                     data.put("Status","Pending");
+                    data.put("tags",tags[0]);
                     fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection(student_branch).document("Group 1").collection("Viva").add(data)
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
