@@ -20,20 +20,14 @@
             android:layout_width="wrap_content"
             android:id="@+id/class_icon"
             android:layout_marginLeft="24dp"
-            android:src="@drawable/ic_resource_class"
+            android:src="@drawable/ic_assignment"
             android:layout_height="match_parent"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:layout_marginStart="24dp" />
         <TextView
             android:layout_toRightOf="@+id/class_icon"
-            android:layout_marginLeft="32dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="14sp"
-            android:textColor="#fff"
-            android:text="Add a new assignment"
-            android:fontFamily="@font/montserrat"
-            android:textFontWeight="700"
-            android:gravity="center_vertical"/>
+            style="@style/add_event_header"
+            android:text="Add a new assignment" />
 
     </RelativeLayout>
     <RelativeLayout
@@ -60,39 +54,18 @@
                 android:layout_marginRight="16dp"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
                     android:id="@+id/class_code_icon"
                     android:src="@drawable/ic_resource_class"
-                    android:layout_marginTop="2dp"
-                    android:layout_height="match_parent" />
+                    style="@style/icon_before_edit_text" />
                 <TextView
                     android:layout_toRightOf="@+id/class_code_icon"
-                    android:layout_marginLeft="24dp"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/textcoursecode"
-                    android:layout_height="match_parent"
-                    android:textSize="14sp"
-                    android:textColor="#4D5C62"
                     android:text="Course Code"
-                    android:fontFamily="@font/montserrat"
-                    android:textFontWeight="400"
-                    android:gravity="center_vertical"
-                    />
+                    style="@style/text_before_edit_text" />
                 <EditText
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="8dp"
                     android:id="@+id/new_assignment_code"
-                    android:layout_width="120dp"
-                    android:layout_height="match_parent"
-                    android:textSize="15sp"
-                    android:textColor="#4D5C62"
-                    android:background="@drawable/edit_text_bg"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/montserrat"
-                    android:textFontWeight="500"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:hint="eg. MA 101" />
+                    android:hint="eg. MA 101"
+                    style="@style/edit_text_with_border"
+                    android:layout_width="120dp"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -102,37 +75,17 @@
                 android:layout_marginRight="16dp"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
+                    style="@style/icon_before_edit_text"
                     android:id="@+id/class_code_icon_1"
                     android:src="@drawable/ic_resource_class"
-                    android:layout_marginTop="2dp"
-                    android:layout_height="match_parent"/>
+                    />
                 <TextView
                     android:layout_toRightOf="@+id/class_code_icon_1"
-                    android:layout_marginLeft="24dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="14sp"
-                    android:textColor="#4D5C62"
                     android:text="Name"
-                    android:fontFamily="@font/montserrat"
-                    android:textFontWeight="400"
-                    android:gravity="center_vertical"
-                    />
+                    style="@style/text_before_edit_text" />
                 <EditText
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="8dp"
                     android:id="@+id/new_assignment_name"
-                    android:layout_width="140dp"
-                    android:layout_height="match_parent"
-                    android:textSize="15sp"
-                    android:textColor="#4D5C62"
-                    android:background="@drawable/edit_text_bg"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/montserrat"
-                    android:textFontWeight="500"
-                    android:gravity="center_horizontal|center_vertical"
+                    style="@style/edit_text_with_border"
                     android:hint="eg. Tutorial 5"/>
             </RelativeLayout>
             <RelativeLayout
@@ -144,38 +97,18 @@
                 android:layout_marginRight="16dp"
                 >
                 <ImageView
-                    android:layout_width="wrap_content"
                     android:id="@+id/class_code_icon_2"
                     android:src="@drawable/ic_resource_class"
-                    android:layout_marginTop="2dp"
-                    android:layout_height="match_parent"/>
+                    style="@style/icon_before_edit_text"/>
                 <TextView
                     android:layout_toRightOf="@+id/class_code_icon_2"
-                    android:layout_marginLeft="24dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="14sp"
-                    android:textColor="#4D5C62"
                     android:text="Platform"
-                    android:fontFamily="@font/montserrat"
-                    android:textFontWeight="400"
-                    android:gravity="center_vertical"
+                    style="@style/text_before_edit_text"
                     />
                 <EditText
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="8dp"
                     android:id="@+id/new_assignment_platform"
-                    android:layout_width="140dp"
-                    android:layout_height="match_parent"
-                    android:textSize="15sp"
-                    android:textColor="#4D5C62"
-                    android:background="@drawable/edit_text_bg"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/montserrat"
-                    android:textFontWeight="500"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:hint="eg. MS Teams"/>
+                    android:hint="eg. MS Teams"
+                    style="@style/edit_text_with_border"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -185,29 +118,15 @@
                 android:layout_marginTop="12dp">
                 <TextView
                     android:id="@+id/due_on_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
                     android:text="Due On"
-                    android:gravity="center_vertical"
-                    android:padding="12dp"
-                    android:fontFamily="@font/montserrat"
-                    android:textFontWeight="400"
-                    android:textSize="12sp"
-                    android:background="@drawable/right_side_border"
-                    android:textColor="#1A2D35"
+                    style="@style/light_small_text"
                     />
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
                     android:layout_toRightOf="@id/due_on_text"
                     android:text="Select Deadline"
-                    android:fontFamily="@font/montserrat"
-                    android:textFontWeight="600"
                     android:id="@+id/new_date"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="23dp"
-                    android:textColor="#1A2D35"/>
+                    style="@style/select_date_button"
+                    android:layout_toEndOf="@id/due_on_text" />
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -280,23 +199,10 @@
 
         </LinearLayout>
         <Button
-            android:layout_width="match_parent"
             android:id="@+id/add_assignment"
-            android:layout_height="72dp"
-            android:backgroundTint="#3D83FF"
-            android:layout_alignParentBottom="true"
-            android:textColor="@color/white"
-            android:layout_centerHorizontal="true"
             android:text="Add Assignment"
-            android:textAllCaps="false"
-            android:textSize="15sp"
-            android:textFontWeight="900"
-            android:fontFamily="@font/roboto_black"
-            style="@style/no_corner_button"
-            android:layout_marginRight="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginBottom="16dp"
-            />
+            style="@style/submit_button"
+            app:backgroundTint="#3D83FF" />
 
     </RelativeLayout>
 
