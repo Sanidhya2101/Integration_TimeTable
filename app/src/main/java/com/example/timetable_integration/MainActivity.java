@@ -1,14 +1,11 @@
 package com.example.timetable_integration;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.animation.LayoutTransition;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -16,57 +13,70 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.timetable_integration.Adaptor.CourseAdaptor;
+import com.example.timetable_integration.Adaptor.AssignmentAdaptor;
+import com.example.timetable_integration.Adaptor.ClassAdaptor;
+import com.example.timetable_integration.Adaptor.QuizAdaptor;
 import com.example.timetable_integration.Adaptor.SlotAdaptor;
-import com.example.timetable_integration.Models.Course;
+import com.example.timetable_integration.Models.Assignment;
+import com.example.timetable_integration.Models.Class_;
+import com.example.timetable_integration.Models.Quiz;
 import com.example.timetable_integration.Models.Slot;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.DateFormat;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton add_new_event;
-    RecyclerView courses_rec;
-    ArrayList<Course> coursedata;
-    CourseAdaptor courseAdaptor;
+
+    RecyclerView today_class_rec;
+    RecyclerView upcoming_quiz_rec;
+    RecyclerView upcoming_assignment_rec;
+
+    ClassAdaptor classAdaptor;
+    QuizAdaptor quizAdaptor;
+    AssignmentAdaptor assignmentAdaptor;
+
+    TextView txt_today;
+    TextView txt_upcoming_quiz;
+    TextView txt_upcoming_assignment;
+
+
+    ArrayList<Class_> class_list;
+    ArrayList<Quiz> quiz_list;
+    ArrayList<Assignment> assignment_list;
+
     FirebaseFirestore fstore;
 
     SharedPreferences sp;
@@ -84,15 +94,58 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         add_new_event=(FloatingActionButton) findViewById(R.id.add_new_event);
         fstore = FirebaseFirestore.getInstance();
-        courses_rec = findViewById(R.id.course_class);
-        coursedata = new ArrayList<>();
+        today_class_rec = findViewById(R.id.today_class_recycler);
+        upcoming_quiz_rec = findViewById(R.id.upcoming_quiz_recycler);
+        upcoming_assignment_rec = findViewById(R.id.upcoming_assignment_recycler);
+        txt_today = findViewById(R.id.today_date);
+        txt_upcoming_quiz = findViewById(R.id.upcoming_quiz_txt);
+        txt_upcoming_assignment = findViewById(R.id.upcoming_assignment_txt);
 
-        LinearLayoutManager ll = new LinearLayoutManager(this);
-        ll.setReverseLayout(true);
-        ll.setStackFromEnd(true);
 
-        courses_rec.setLayoutManager(ll);
-        courseAdaptor = new CourseAdaptor(coursedata,this);
+        class_list = new ArrayList<>();
+        quiz_list = new ArrayList<>();
+        assignment_list = new ArrayList<>();
+        classAdaptor = new ClassAdaptor(this,class_list);
+        quizAdaptor = new QuizAdaptor( quiz_list,this);
+        assignmentAdaptor = new AssignmentAdaptor(assignment_list,this);
+
+
+        SimpleDateFormat spf = new SimpleDateFormat("EEEE");
+        Date d1 = new Date();
+        String today_day = spf.format(d1);
+
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String today_date = formatter.format(d1);
+
+        SimpleDateFormat spf2 = new SimpleDateFormat("MMM d");
+        txt_today.setText(spf2.format(new Date()));
+
+
+        LinearLayoutManager ll1 = new LinearLayoutManager(this);
+        ll1.setStackFromEnd(true);
+        ll1.setReverseLayout(true);
+
+
+        LinearLayoutManager ll2 = new LinearLayoutManager(this);
+        ll2.setStackFromEnd(true);
+        ll2.setReverseLayout(true);
+
+
+        LinearLayoutManager ll3 = new LinearLayoutManager(this);
+        ll3.setStackFromEnd(true);
+        ll3.setReverseLayout(true);
+
+        today_class_rec.setLayoutManager(ll1);
+        today_class_rec.setAdapter(classAdaptor);
+
+        upcoming_quiz_rec.setLayoutManager(ll2);
+        upcoming_quiz_rec.setAdapter(quizAdaptor);
+
+        upcoming_assignment_rec.setLayoutManager(ll3);
+        upcoming_assignment_rec.setAdapter(assignmentAdaptor);
+
+
 
         sp = getSharedPreferences("rollcode", 0);
         String roll_no = sp.getString("roll", null);
@@ -156,30 +209,333 @@ public class MainActivity extends AppCompatActivity {
             case "07": case "08": case "09": case "10": case "11": case "12":{ student_semester = "Semester 1"; break;}
         }
 
-        /*fstore.collection("Timetable").orderBy("course_time", Query.Direction.DESCENDING)
-                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-
-                for(DocumentSnapshot d:list)
-                {
-                    Course obj = d.toObject(Course.class);
-                    coursedata.add(obj);
-                }
-
-                courses_rec.setAdapter(courseAdaptor);
-                courseAdaptor.notifyDataSetChanged();
 
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull @NotNull Exception e) {
-                Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        });*/
+
+        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Class")
+                .whereNotEqualTo("Status","Pending")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(queryDocumentSnapshots.isEmpty())
+                            return;
+
+                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+                        {
+
+
+
+                            ArrayList<Map<String,Object>> slot_to_check = (ArrayList<Map<String, Object>>) d.get("Slots");
+
+
+                            for(Map<String,Object> s:slot_to_check)
+                            {
+                                if(s.containsValue(today_day))
+                                {
+                                    Class_ obj = d.toObject(Class_.class);
+                                    class_list.add(obj);
+                                    break;
+                                }
+
+                            }
+
+                        }
+
+                        today_class_rec.setAdapter(classAdaptor);
+                        classAdaptor.notifyDataSetChanged();
+                    }
+                });
+
+        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Lab")
+                .whereNotEqualTo("Status","Pending")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                        if(queryDocumentSnapshots.isEmpty())
+                            return;
+
+                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+                        {
+                            ArrayList<Map<String,Object>> slot_to_check = (ArrayList<Map<String, Object>>) d.get("Slots");
+
+
+                            for(Map<String,Object> s:slot_to_check)
+                            {
+                                if(s.containsValue(today_day))
+                                {
+                                    Class_ obj = d.toObject(Class_.class);
+                                    class_list.add(obj);
+                                    break;
+                                }
+
+                            }
+
+                        }
+
+                        today_class_rec.setAdapter(classAdaptor);
+                        classAdaptor.notifyDataSetChanged();
+                    }
+                });
+        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Quiz")
+                .whereNotEqualTo("Status","Pending")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+
+                        if(queryDocumentSnapshots.isEmpty())
+                        {
+                            return;
+                        }
+
+                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+                        {
+
+                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+
+                            Timestamp timestamp = d.getTimestamp("Time");
+
+                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
+
+                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
+
+                            Log.d("Date", date);
+                            Log.d("today_Date", today_date);
+
+                            if(date.equals(today_date))
+                            {
+                                Class_ obj = d.toObject(Class_.class);
+                                class_list.add(obj);
+                            }
+
+
+                        }
+
+
+                        upcoming_quiz_rec.setAdapter(quizAdaptor);
+                        quizAdaptor.notifyDataSetChanged();
+
+                    }
+                });
+        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Viva")
+                .whereNotEqualTo("Status","Pending")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(queryDocumentSnapshots.isEmpty())
+                        {
+                            return;
+                        }
+
+                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+                        {
+
+                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+
+                            Timestamp timestamp = d.getTimestamp("Time");
+
+                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
+
+                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
+
+                            Log.d("Date", date);
+                            Log.d("today_Date", today_date);
+
+                            if(date.equals(today_date))
+                            {
+                                Class_ obj = d.toObject(Class_.class);
+                                class_list.add(obj);
+                            }
+
+
+                        }
+
+
+
+                        upcoming_quiz_rec.setAdapter(quizAdaptor);
+                        quizAdaptor.notifyDataSetChanged();
+
+                    }
+                });
+        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Assignment")
+                .whereNotEqualTo("Status","Pending")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(queryDocumentSnapshots.isEmpty())
+                        {
+                            return;
+                        }
+
+                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+                        {
+                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+
+                            Timestamp timestamp = d.getTimestamp("Deadline");
+
+                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
+
+                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
+
+                            if(date.equals(today_date))
+                            {
+                                Class_ obj = d.toObject(Class_.class);
+                                class_list.add(obj);
+                            }
+                        }
+
+                        upcoming_assignment_rec.setAdapter(assignmentAdaptor);
+                        assignmentAdaptor.notifyDataSetChanged();
+                    }
+                });
+
+
+
+
+
+
+
+        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Quiz")
+                .whereNotEqualTo("Status","Pending")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+
+                        if(queryDocumentSnapshots.isEmpty())
+                        {
+                            txt_upcoming_quiz.setVisibility(View.GONE);
+                            return;
+                        }
+
+                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+                        {
+
+                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+
+                            Timestamp timestamp = d.getTimestamp("Time");
+
+                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
+
+                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
+
+                            Log.d("Date", date);
+                            Log.d("today_Date", today_date);
+
+                            if(!date.equals(today_date))
+                            {
+                                Quiz obj = d.toObject(Quiz.class);
+                                quiz_list.add(obj);
+                            }
+
+
+                        }
+
+                        if(quiz_list.isEmpty())
+                            txt_upcoming_quiz.setVisibility(View.GONE);
+                        else
+                            txt_upcoming_quiz.setVisibility(View.VISIBLE);
+
+                        upcoming_quiz_rec.setAdapter(quizAdaptor);
+                        quizAdaptor.notifyDataSetChanged();
+
+                    }
+                });
+        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Viva")
+                .whereNotEqualTo("Status","Pending")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(queryDocumentSnapshots.isEmpty())
+                        {
+                            txt_upcoming_quiz.setVisibility(View.GONE);
+                            return;
+                        }
+
+                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+                        {
+
+                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+
+                            Timestamp timestamp = d.getTimestamp("Time");
+
+                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
+
+                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
+
+                            Log.d("Date", date);
+                            Log.d("today_Date", today_date);
+
+                            if(!date.equals(today_date))
+                            {
+                                Quiz obj = d.toObject(Quiz.class);
+                                quiz_list.add(obj);
+                            }
+
+
+                        }
+
+
+                        if(quiz_list.isEmpty())
+                            txt_upcoming_quiz.setVisibility(View.GONE);
+                        else
+                            txt_upcoming_quiz.setVisibility(View.VISIBLE);
+
+                        upcoming_quiz_rec.setAdapter(quizAdaptor);
+                        quizAdaptor.notifyDataSetChanged();
+
+                    }
+                });
+
+
+
+
+        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Assignment")
+                .whereNotEqualTo("Status","Pending")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(queryDocumentSnapshots.isEmpty())
+                        {
+                            txt_upcoming_assignment.setVisibility(View.GONE);
+                            return;
+                        }
+
+                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+                        {
+                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+
+                            Timestamp timestamp = d.getTimestamp("Deadline");
+
+                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
+
+                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
+
+                            if(!date.equals(today_date))
+                            {
+                                Assignment obj = d.toObject(Assignment.class);
+                                assignment_list.add(obj);
+                            }
+                        }
+
+                        if(assignment_list.isEmpty())
+                            txt_upcoming_assignment.setVisibility(View.GONE);
+                        else
+                            txt_upcoming_assignment.setVisibility(View.VISIBLE);
+
+                        upcoming_assignment_rec.setAdapter(assignmentAdaptor);
+                        assignmentAdaptor.notifyDataSetChanged();
+                    }
+                });
 
 
         add_new_event.setOnClickListener(new View.OnClickListener() {
@@ -499,10 +855,10 @@ public class MainActivity extends AppCompatActivity {
                             doc.put("Platform",course_plateform.getText().toString());
                             doc.put("Status","Pending");
                             doc.put("Slots",slot_list);
-                            doc.put("Tag","Theory");
+                            doc.put("tags","Theory");
                             doc.put("Duration","1 hour");
 
-                            fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_branch+'/'+student_semester+"/Group 1/Class")
+                            fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Class")
                                     .document(course_code.getText().toString())
                                     .set(doc)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -989,10 +1345,10 @@ public class MainActivity extends AppCompatActivity {
                             doc.put("Platform",lab_plateform.getText().toString());
                             doc.put("Status","Pending");
                             doc.put("Slots",labslot_list);
-                            doc.put("Tag","Lab");
+                            doc.put("tags","Lab");
                             doc.put("Duration","3 hour");
 
-                            fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_branch+'/'+student_semester+"/Group 1/Lab")
+                            fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Lab")
                                     .document(lab_code.getText().toString())
                                     .set(doc)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {

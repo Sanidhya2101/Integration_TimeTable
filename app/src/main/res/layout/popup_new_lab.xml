@@ -8,26 +8,29 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/top"
-        android:background="#649CFF"
-        android:paddingBottom="12dp"
-        android:paddingTop="12dp"
-        android:layout_height="wrap_content">
+        android:background="@drawable/add_new_header_bg"
+        android:layout_height="64dp"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        >
         <ImageView
             android:layout_width="wrap_content"
-            android:id="@+id/class_icon"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_lab_icon"
-            android:layout_marginTop="4dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/lab_icon"
+            android:layout_marginLeft="24dp"
+            android:src="@drawable/ic_lab"
+            android:layout_height="match_parent"
             app:tint="@color/white" />
         <TextView
-            android:layout_toRightOf="@+id/class_icon"
-            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/lab_icon"
+            android:layout_marginLeft="32dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
             android:textColor="#fff"
-            android:text="Add a new lab"/>
+            android:text="Add a new lab"
+            android:fontFamily="@font/montserrat"
+            android:textFontWeight="700"
+            android:gravity="center_vertical"/>
 
     </RelativeLayout>
 
@@ -46,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/class_code_icon"
                 android:layout_marginLeft="30dp"
-                android:src="@drawable/ic_class_icon"
+                android:src="@drawable/ic_resource_class"
                 android:layout_marginTop="8dp"
                 android:layout_height="wrap_content"
                 app:tint="#4D5C62" />
@@ -56,22 +59,28 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/textcoursecode"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textColor="#4D5C62"
                 android:text="Course Code"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat"
+                android:textFontWeight="400"
+                android:gravity="center_vertical"/>
             <EditText
                 android:layout_toRightOf="@+id/textcoursecode"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="30dp"
                 android:textAlignment="center"
-                android:background="@drawable/rounded_border_edittext"
+                android:background="@drawable/edit_text_bg"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textColor="#000"
-                android:gravity="center"
                 android:layout_marginRight="10dp"
-                android:id="@+id/lab_code"/>
+                android:id="@+id/lab_code"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="eg. MA 101"
+                android:textFontWeight="500"
+                android:fontFamily="@font/montserrat"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -92,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/ic_class_icon"
+                android:src="@drawable/ic_resource_class"
                 app:tint="#4D5C62" />
 
             <TextView
@@ -100,23 +109,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/class_name_icon"
                 android:text="Name"
                 android:textColor="#4D5C62"
-                android:textSize="20sp" />
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat"
+                android:textFontWeight="400"
+                android:gravity="center_vertical" />
 
             <EditText
-                android:layout_width="120dp"
+                android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="88dp"
+                android:layout_marginLeft="60dp"
                 android:layout_toRightOf="@+id/textcoursename"
-                android:background="@drawable/rounded_border_edittext"
-                android:gravity="center"
+                android:background="@drawable/edit_text_bg"
                 android:textAlignment="center"
                 android:textColor="#000"
-                android:textSize="20sp"
-                android:id="@+id/lab_name"/>
+                android:textSize="15sp"
+                android:id="@+id/lab_name"
+                android:fontFamily="@font/montserrat"
+                android:textFontWeight="500"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="eg. Number System"/>
 
 
         </RelativeLayout>
@@ -139,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/ic_class_icon"
+                android:src="@drawable/ic_resource_class"
                 app:tint="#4D5C62" />
 
             <TextView
@@ -147,23 +162,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/class_plateform_icon"
                 android:text="Plateform"
                 android:textColor="#4D5C62"
-                android:textSize="20sp" />
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat"
+                android:textFontWeight="400"
+                android:gravity="center_vertical" />
 
             <EditText
                 android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="50dp"
                 android:layout_toRightOf="@+id/textcourseplateform"
-                android:background="@drawable/rounded_border_edittext"
-                android:gravity="center"
+                android:background="@drawable/edit_text_bg"
                 android:textAlignment="center"
                 android:textColor="#000"
-                android:textSize="20sp"
-                android:id="@+id/lab_plateform"/>
+                android:textSize="15sp"
+                android:id="@+id/lab_plateform"
+                android:fontFamily="@font/montserrat"
+                android:textFontWeight="500"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="eg. MS Team"/>
 
 
         </RelativeLayout>
@@ -187,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/ic_class_icon"
+                android:src="@drawable/ic_resource_class"
                 app:tint="#4D5C62" />
 
             <TextView
@@ -195,23 +216,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/class_time_icon"
                 android:text="Time Slot"
                 android:textColor="#4D5C62"
-                android:textSize="20sp" />
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat"
+                android:textFontWeight="400"
+                android:gravity="center_vertical" />
 
             <EditText
                 android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="55dp"
                 android:layout_toRightOf="@+id/textcoursetime"
-                android:background="@drawable/rounded_border_edittext"
-                android:gravity="center"
+                android:background="@drawable/edit_text_bg"
                 android:textAlignment="center"
                 android:textColor="#000"
-                android:textSize="20sp"
-                android:id="@+id/lab_time"/>
+                android:textSize="15sp"
+                android:id="@+id/lab_time"
+                android:fontFamily="@font/montserrat"
+                android:textFontWeight="500"
+                android:gravity="center_horizontal|center_vertical"
+                android:hint="eg. 9 am"/>
 
 
         </RelativeLayout>
@@ -235,7 +262,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/ic_class_icon"
+                android:src="@drawable/ic_resource_class"
                 app:tint="#4D5C62" />
 
             <TextView
@@ -243,11 +270,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/class_day_icon"
                 android:text="Days"
                 android:textColor="#4D5C62"
-                android:textSize="20sp" />
+                android:textSize="14sp"
+                android:fontFamily="@font/montserrat"
+                android:textFontWeight="400"
+                android:gravity="center_vertical" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -262,77 +292,91 @@
                     android:layout_width="28dp"
                     android:layout_height="25dp"
                     android:text="M"
-                    android:textSize="17sp"
+                    android:textSize="12sp"
                     android:textColor="#99A2A5"
                     android:layout_marginRight="20dp"
                     android:id="@+id/LMonday"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat"
+                    android:textFontWeight="700"/>
 
 
                 <TextView
                     android:layout_width="28dp"
                     android:layout_height="25dp"
                     android:text="T"
-                    android:textSize="17sp"
+                    android:textSize="12sp"
                     android:textColor="#99A2A5"
                     android:layout_marginRight="20dp"
                     android:id="@+id/LTuesday"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat"
+                    android:textFontWeight="700"/>
 
 
                 <TextView
                     android:layout_width="28dp"
                     android:layout_height="25dp"
                     android:text="W"
-                    android:textSize="17sp"
+                    android:textSize="12sp"
                     android:textColor="#99A2A5"
                     android:layout_marginRight="20dp"
                     android:id="@+id/LWednesday"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat"
+                    android:textFontWeight="700"/>
 
 
                 <TextView
                     android:layout_width="28dp"
                     android:layout_height="25dp"
                     android:text="T"
-                    android:textSize="17sp"
+                    android:textSize="12sp"
                     android:textColor="#99A2A5"
                     android:layout_marginRight="20dp"
                     android:id="@+id/LThursday"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat"
+                    android:textFontWeight="700"/>
 
 
                 <TextView
                     android:layout_width="28dp"
                     android:layout_height="25dp"
                     android:text="F"
-                    android:textSize="17sp"
+                    android:textSize="12sp"
                     android:textColor="#99A2A5"
                     android:layout_marginRight="20dp"
                     android:id="@+id/LFriday"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat"
+                    android:textFontWeight="700"/>
 
 
                 <TextView
                     android:layout_width="28dp"
                     android:layout_height="25dp"
                     android:text="S"
-                    android:textSize="17sp"
+                    android:textSize="12sp"
                     android:textColor="#99A2A5"
                     android:layout_marginRight="20dp"
                     android:id="@+id/LSaturday"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat"
+                    android:textFontWeight="700"/>
 
 
                 <TextView
                     android:layout_width="28dp"
                     android:layout_height="25dp"
                     android:text="S"
-                    android:textSize="17sp"
+                    android:textSize="12sp"
                     android:textColor="#99A2A5"
                     android:layout_marginRight="20dp"
                     android:id="@+id/LSunday"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat"
+                    android:textFontWeight="700"/>
 
 
             </LinearLayout>
@@ -360,33 +404,51 @@
             android:layout_marginLeft="48dp"
             android:layout_marginTop="40dp"
             android:id="@+id/add_new_labslot"
-            android:visibility="visible"/>
+            android:visibility="visible"
+            android:fontFamily="@font/montserrat"
+            android:textFontWeight="400"
+            android:textSize="14sp"
+            android:textColor="#B3B9BC"/>
 
 
         <Button
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:id="@+id/create_new_lab"
-            android:layout_height="50dp"
+            android:layout_height="72dp"
             android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/add_new_labslot"
             android:textColor="@color/white"
             android:backgroundTint="#3D83FF"
             android:text="Create Class"
-            android:visibility="visible"/>
+            android:visibility="visible"
+            style="@style/no_corner_button"
+            android:textAllCaps="false"
+            android:textFontWeight="900"
+            android:textSize="15sp"
+            android:fontFamily="@font/roboto_black"
+            android:layout_marginRight="24dp"
+            android:layout_marginLeft="24dp"/>
 
 
         <Button
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:id="@+id/create_new_labslot"
-            android:layout_height="50dp"
+            android:layout_height="72dp"
             android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/edit_labday_slot"
             android:textColor="@color/white"
             android:backgroundTint="#3D83FF"
             android:visibility="gone"
-            android:text="Add Slot"/>
+            android:text="Add Slot"
+            style="@style/no_corner_button"
+            android:textAllCaps="false"
+            android:textFontWeight="900"
+            android:textSize="15sp"
+            android:fontFamily="@font/roboto_black"
+            android:layout_marginRight="24dp"
+            android:layout_marginLeft="24dp"/>
 
 
     </RelativeLayout>

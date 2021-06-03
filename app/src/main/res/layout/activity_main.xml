@@ -8,7 +8,7 @@
     android:backgroundTint="@color/white"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_marginTop="24dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -25,31 +25,76 @@
                 android:layout_height="wrap_content"
                 android:text="Today"
                 android:textFontWeight="600"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textColor="#01161E"
-                android:fontFamily="@font/montserrat"/>
+                android:fontFamily="@font/montserrat"
+                android:id="@+id/today_class"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="24 May"
                 android:textFontWeight="500"
-                android:textSize="14sp"
-                android:textColor="#01161E"
+                android:textSize="12sp"
+                android:textColor="#4D5C62"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/montserrat"
-                />
+                android:id="@+id/today_date"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/course_class"
+                android:id="@+id/today_class_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                tools:listitem="@layout/class_list"/>
+                android:layout_marginBottom="32dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upcoming Quizes"
+                android:textFontWeight="600"
+                android:textSize="16sp"
+                android:textColor="#01161E"
+                android:fontFamily="@font/montserrat"
+                android:id="@+id/upcoming_quiz_txt"
+                android:visibility="gone"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/upcoming_quiz_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upcoming Assignments"
+                android:textFontWeight="600"
+                android:textSize="16sp"
+                android:textColor="#01161E"
+                android:fontFamily="@font/montserrat"
+                android:id="@+id/upcoming_assignment_txt"
+                android:visibility="gone"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/upcoming_assignment_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
+
+
+
+
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
 

@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginBottom="21dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:fontFamily="@font/montserrat"
+        android:textFontWeight="500"
+        android:textSize="12sp"
+        android:textColor="#4D5C62"
+        android:text="Time"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/txt_Time"/>
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     app:cardCornerRadius="4dp"
     android:layout_marginBottom="8dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     app:strokeColor = "#E6E8E9"
     app:strokeWidth  = "1dp"
     android:clickable="true"
@@ -78,7 +96,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="52dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:orientation="vertical"
@@ -90,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:text="10 am"
+                android:text="10:00 am"
                 android:textColor="#060D19"
                 android:textFontWeight="600"
                 android:fontFamily="@font/montserrat"/>
@@ -117,5 +135,5 @@
 
 </com.google.android.material.card.MaterialCardView>
 
-
+</LinearLayout>
 
