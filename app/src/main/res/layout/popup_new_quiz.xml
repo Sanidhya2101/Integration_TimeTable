@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +23,9 @@
                 android:layout_marginLeft="28dp"
                 android:src="@drawable/ic_quiz"
                 android:layout_height="match_parent"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                android:layout_marginStart="28dp"
+                android:contentDescription="Assignment Icon" />
             <TextView
                 android:layout_toRightOf="@+id/class_icon"
                 android:text="Add a new Quiz"
@@ -62,6 +65,7 @@
                         style="@style/text_before_edit_text"
                         android:layout_toRightOf="@+id/class_code_icon"/>
                     <EditText
+                        android:autofillHints="MA 101"
                         android:id="@+id/new_quiz_code"
                         android:hint="eg. MA 101"
                         style="@style/edit_text_with_border"
@@ -86,7 +90,8 @@
                     <EditText
                         android:id="@+id/new_quiz_name"
                         style="@style/edit_text_with_border"
-                        android:hint="eg. Quiz 5" />
+                        android:hint="eg. Quiz 5"
+                         />
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -98,8 +103,7 @@
                     <ImageView
                         style="@style/icon_before_edit_text"
                         android:id="@+id/class_code_icon_3"
-                        android:src="@drawable/ic_resource_class"
-                        />
+                        android:src="@drawable/ic_resource_class" />
                     <TextView
                         android:layout_toRightOf="@+id/class_code_icon_3"
                         android:text="Duration"
@@ -158,7 +162,8 @@
                         android:layout_marginRight="20dp"
                         android:id="@+id/date_delete_button"
                         android:visibility="gone"
-                        tools:visibility="visible" />
+                        tools:visibility="visible"
+                        android:contentDescription="remove icon" />
 
                 </RelativeLayout>
 
@@ -194,6 +199,12 @@
                         android:orientation="horizontal"
                         android:layout_toLeftOf="@+id/tag_edit_text"
                         android:gravity="center_vertical">
+                        <TextView
+                            android:id="@+id/default_tag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            style="@style/tag"
+                            android:text="Quiz"/>
                     </LinearLayout>
 
                     <EditText
@@ -205,7 +216,7 @@
                         android:layout_marginLeft="12dp"
                         android:layout_toLeftOf="@id/add_tags"
                         android:layout_marginRight="6dp"
-                        android:hint="eg. Doubts" />
+                        android:hint="eg. MCQ" />
                     <TextView
                         android:id="@+id/add_tags"
                         android:layout_width="wrap_content"

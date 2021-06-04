@@ -915,7 +915,7 @@ public class MainActivity extends AppCompatActivity {
                     v.setVisibility(View.GONE);
                 });
 
-                final String[] tags = {""};
+                final String[] tags = {"Assignment"};
                 TextView add_tags_button = popupclassView.findViewById(R.id.add_tags);
                 add_tags_button.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -927,7 +927,7 @@ public class MainActivity extends AppCompatActivity {
                         tags[0] = tags[0] + "," + s;
                         e.setText("");
                         TextView t = new TextView(popupclassView.getContext());
-                        t.setText(s+"   ");
+                        t.setText("   "+s);
                         t.setLayoutParams(new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -995,7 +995,7 @@ public class MainActivity extends AppCompatActivity {
                 v.setVisibility(View.GONE);
             });
 
-            final String[] tags = {""};
+            final String[] tags = {"Quiz"};
             TextView add_tags_button = popupclassView.findViewById(R.id.add_tags);
             add_tags_button.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.M)
@@ -1007,7 +1007,7 @@ public class MainActivity extends AppCompatActivity {
                     tags[0] = tags[0] + "," + s;
                     e.setText("");
                     TextView t = new TextView(popupclassView.getContext());
-                    t.setText(s+"   ");
+                    t.setText("   "+s);
                     t.setLayoutParams(new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -1406,7 +1406,7 @@ public class MainActivity extends AppCompatActivity {
                     v.setVisibility(View.GONE);
                 });
 
-                final String[] tags = {""};
+                final String[] tags = {"Viva"};
                 TextView add_tags_button = popupclassView.findViewById(R.id.add_tags);
                 add_tags_button.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -1418,7 +1418,7 @@ public class MainActivity extends AppCompatActivity {
                         tags[0] = tags[0] + "," + s;
                         e.setText("");
                         TextView t = new TextView(popupclassView.getContext());
-                        t.setText(s+"   ");
+                        t.setText("   "+s);
                         t.setLayoutParams(new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT));

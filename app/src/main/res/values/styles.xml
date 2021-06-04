@@ -12,6 +12,7 @@
     </style>
 
     <style name="edit_text_with_border">
+        <item name="android:inputType">text</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_width">140dp</item>
@@ -65,6 +66,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginTop">2dp</item>
         <item name="android:layout_height">match_parent</item>
+        <item name="android:contentDescription">Class Icon</item>
     </style>
 
     <style name="add_event_header">
