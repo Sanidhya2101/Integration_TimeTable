@@ -69,7 +69,8 @@
                         android:id="@+id/new_quiz_code"
                         android:hint="eg. MA 101"
                         style="@style/edit_text_with_border"
-                        android:layout_width="120dp"/>
+                        android:layout_width="120dp"
+                        android:singleLine="true"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -91,6 +92,7 @@
                         android:id="@+id/new_quiz_name"
                         style="@style/edit_text_with_border"
                         android:hint="eg. Quiz 5"
+                        android:singleLine="true"
                          />
                 </RelativeLayout>
                 <RelativeLayout
@@ -112,7 +114,8 @@
                     <EditText
                         android:id="@+id/new_quiz_duration"
                         style="@style/edit_text_with_border"
-                        android:hint="eg. 1 hour"/>
+                        android:hint="eg. 1 hour"
+                        android:singleLine="true"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -135,7 +138,8 @@
                     <EditText
                         android:id="@+id/new_quiz_platform"
                         android:hint="eg. MS Teams"
-                        style="@style/edit_text_with_border"/>
+                        style="@style/edit_text_with_border"
+                        android:singleLine="true"/>
                 </RelativeLayout>
 
 
@@ -216,7 +220,8 @@
                         android:layout_marginLeft="12dp"
                         android:layout_toLeftOf="@id/add_tags"
                         android:layout_marginRight="6dp"
-                        android:hint="eg. MCQ" />
+                        android:hint="eg. MCQ"
+                        android:singleLine="true"/>
                     <TextView
                         android:id="@+id/add_tags"
                         android:layout_width="wrap_content"

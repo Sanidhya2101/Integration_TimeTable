@@ -80,7 +80,8 @@
                 android:gravity="center_horizontal|center_vertical"
                 android:hint="eg. MA 101"
                 android:textFontWeight="500"
-                android:fontFamily="@font/montserrat"/>
+                android:fontFamily="@font/montserrat"
+                android:singleLine="true"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -131,7 +132,8 @@
                 android:fontFamily="@font/montserrat"
                 android:textFontWeight="500"
                 android:gravity="center_horizontal|center_vertical"
-                android:hint="eg. Number System"/>
+                android:hint="eg. Number System"
+                android:singleLine="true"/>
 
 
         </RelativeLayout>
@@ -184,7 +186,8 @@
                 android:fontFamily="@font/montserrat"
                 android:textFontWeight="500"
                 android:gravity="center_horizontal|center_vertical"
-                android:hint="eg. MS Team"/>
+                android:hint="eg. MS Team"
+                android:singleLine="true"/>
 
 
         </RelativeLayout>
@@ -238,7 +241,8 @@
                 android:fontFamily="@font/montserrat"
                 android:textFontWeight="500"
                 android:gravity="center_horizontal|center_vertical"
-                android:hint="eg. 9 am"/>
+                android:hint="eg. 9 am"
+                android:singleLine="true"/>
 
 
         </RelativeLayout>

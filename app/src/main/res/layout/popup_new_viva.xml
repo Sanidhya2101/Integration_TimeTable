@@ -65,7 +65,8 @@
                         style="@style/edit_text_with_border"
                         android:id="@+id/new_viva_code"
                         android:hint="eg. MA 101"
-                        android:layout_width="120dp"/>
+                        android:layout_width="120dp"
+                        android:singleLine="true"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -86,7 +87,8 @@
                     <EditText
                         android:id="@+id/new_viva_name"
                         style="@style/edit_text_with_border"
-                        android:hint="eg. Viva 5"/>
+                        android:hint="eg. Viva 5"
+                        android:singleLine="true"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -107,7 +109,8 @@
                     <EditText
                         style="@style/edit_text_with_border"
                         android:id="@+id/new_viva_duration"
-                        android:hint="eg. 1 hour"/>
+                        android:hint="eg. 1 hour"
+                        android:singleLine="true"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -129,7 +132,8 @@
                     <EditText
                         android:id="@+id/new_viva_platform"
                         style="@style/edit_text_with_border"
-                        android:hint="eg. MS Teams"/>
+                        android:hint="eg. MS Teams"
+                        android:singleLine="true"/>
                 </RelativeLayout>
 
 
@@ -209,7 +213,8 @@
                         android:layout_marginLeft="12dp"
                         android:layout_toLeftOf="@id/add_tags"
                         android:layout_marginRight="6dp"
-                        android:hint="eg. MCQ" />
+                        android:hint="eg. MCQ"
+                        android:singleLine="true"/>
                     <TextView
                         android:id="@+id/add_tags"
                         android:layout_width="wrap_content"
