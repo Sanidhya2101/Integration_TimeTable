@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
         //following line to be removed after integration:
         roll_no = "200101001";
 
+        // Extracting details from roll no.
         if (roll_no != null){
             //int roll = Integer.parseInt(roll_no);
             String branch_code = roll_no.substring(4,6);
@@ -211,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+        // Setting up classes on main screen
         fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Class")
                 .whereNotEqualTo("Status","Pending")
                 .get()
@@ -247,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        // Setting up labs on main screen
         fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Lab")
                 .whereNotEqualTo("Status","Pending")
                 .get()
@@ -279,6 +281,8 @@ public class MainActivity extends AppCompatActivity {
                         classAdaptor.notifyDataSetChanged();
                     }
                 });
+
+        // Setting up quizzes on main screen
         fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Quiz")
                 .whereNotEqualTo("Status","Pending")
                 .get()
@@ -321,6 +325,8 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
+        // Setting up viva on main screen
         fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Viva")
                 .whereNotEqualTo("Status","Pending")
                 .get()
@@ -362,6 +368,8 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
+        // Setting up assignment on main screen
         fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Assignment")
                 .whereNotEqualTo("Status","Pending")
                 .get()
@@ -396,148 +404,143 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
+//        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Quiz")
+//                .whereNotEqualTo("Status","Pending")
+//                .get()
+//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//
+//
+//                        if(queryDocumentSnapshots.isEmpty())
+//                        {
+//                            txt_upcoming_quiz.setVisibility(View.GONE);
+//                            return;
+//                        }
+//
+//                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+//                        {
+//
+//                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+//
+//                            Timestamp timestamp = d.getTimestamp("Time");
+//
+//                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
+//
+//                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
+//
+//                            Log.d("Date", date);
+//                            Log.d("today_Date", today_date);
+//
+//                            if(!date.equals(today_date))
+//                            {
+//                                Quiz obj = d.toObject(Quiz.class);
+//                                quiz_list.add(obj);
+//                            }
+//
+//
+//                        }
+//
+//                        if(quiz_list.isEmpty())
+//                            txt_upcoming_quiz.setVisibility(View.GONE);
+//                        else
+//                            txt_upcoming_quiz.setVisibility(View.VISIBLE);
+//
+//                        upcoming_quiz_rec.setAdapter(quizAdaptor);
+//                        quizAdaptor.notifyDataSetChanged();
+//
+//                    }
+//                });
+//        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Viva")
+//                .whereNotEqualTo("Status","Pending")
+//                .get()
+//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                        if(queryDocumentSnapshots.isEmpty())
+//                        {
+//                            txt_upcoming_quiz.setVisibility(View.GONE);
+//                            return;
+//                        }
+//
+//                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+//                        {
+//
+//                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+//
+//                            Timestamp timestamp = d.getTimestamp("Time");
+//
+//                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
+//
+//                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
+//
+//                            Log.d("Date", date);
+//                            Log.d("today_Date", today_date);
+//
+//                            if(!date.equals(today_date))
+//                            {
+//                                Quiz obj = d.toObject(Quiz.class);
+//                                quiz_list.add(obj);
+//                            }
+//
+//
+//                        }
+//
+//
+//                        if(quiz_list.isEmpty())
+//                            txt_upcoming_quiz.setVisibility(View.GONE);
+//                        else
+//                            txt_upcoming_quiz.setVisibility(View.VISIBLE);
+//
+//                        upcoming_quiz_rec.setAdapter(quizAdaptor);
+//                        quizAdaptor.notifyDataSetChanged();
+//
+//                    }
+//                });
 
+//
+//
+//
+//        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Assignment")
+//                .whereNotEqualTo("Status","Pending")
+//                .get()
+//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                        if(queryDocumentSnapshots.isEmpty())
+//                        {
+//                            txt_upcoming_assignment.setVisibility(View.GONE);
+//                            return;
+//                        }
+//
+//                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+//                        {
+//                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+//
+//                            Timestamp timestamp = d.getTimestamp("Deadline");
+//
+//                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
+//
+//                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
+//
+//                            if(!date.equals(today_date))
+//                            {
+//                                Assignment obj = d.toObject(Assignment.class);
+//                                assignment_list.add(obj);
+//                            }
+//                        }
+//
+//                        if(assignment_list.isEmpty())
+//                            txt_upcoming_assignment.setVisibility(View.GONE);
+//                        else
+//                            txt_upcoming_assignment.setVisibility(View.VISIBLE);
+//
+//                        upcoming_assignment_rec.setAdapter(assignmentAdaptor);
+//                        assignmentAdaptor.notifyDataSetChanged();
+//                    }
+//                });
 
-
-
-
-        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Quiz")
-                .whereNotEqualTo("Status","Pending")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-
-                        if(queryDocumentSnapshots.isEmpty())
-                        {
-                            txt_upcoming_quiz.setVisibility(View.GONE);
-                            return;
-                        }
-
-                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
-                        {
-
-                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-
-                            Timestamp timestamp = d.getTimestamp("Time");
-
-                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
-
-                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
-
-                            Log.d("Date", date);
-                            Log.d("today_Date", today_date);
-
-                            if(!date.equals(today_date))
-                            {
-                                Quiz obj = d.toObject(Quiz.class);
-                                quiz_list.add(obj);
-                            }
-
-
-                        }
-
-                        if(quiz_list.isEmpty())
-                            txt_upcoming_quiz.setVisibility(View.GONE);
-                        else
-                            txt_upcoming_quiz.setVisibility(View.VISIBLE);
-
-                        upcoming_quiz_rec.setAdapter(quizAdaptor);
-                        quizAdaptor.notifyDataSetChanged();
-
-                    }
-                });
-        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Viva")
-                .whereNotEqualTo("Status","Pending")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if(queryDocumentSnapshots.isEmpty())
-                        {
-                            txt_upcoming_quiz.setVisibility(View.GONE);
-                            return;
-                        }
-
-                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
-                        {
-
-                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-
-                            Timestamp timestamp = d.getTimestamp("Time");
-
-                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
-
-                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
-
-                            Log.d("Date", date);
-                            Log.d("today_Date", today_date);
-
-                            if(!date.equals(today_date))
-                            {
-                                Quiz obj = d.toObject(Quiz.class);
-                                quiz_list.add(obj);
-                            }
-
-
-                        }
-
-
-                        if(quiz_list.isEmpty())
-                            txt_upcoming_quiz.setVisibility(View.GONE);
-                        else
-                            txt_upcoming_quiz.setVisibility(View.VISIBLE);
-
-                        upcoming_quiz_rec.setAdapter(quizAdaptor);
-                        quizAdaptor.notifyDataSetChanged();
-
-                    }
-                });
-
-
-
-
-        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Assignment")
-                .whereNotEqualTo("Status","Pending")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if(queryDocumentSnapshots.isEmpty())
-                        {
-                            txt_upcoming_assignment.setVisibility(View.GONE);
-                            return;
-                        }
-
-                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
-                        {
-                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-
-                            Timestamp timestamp = d.getTimestamp("Deadline");
-
-                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
-
-                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
-
-                            if(!date.equals(today_date))
-                            {
-                                Assignment obj = d.toObject(Assignment.class);
-                                assignment_list.add(obj);
-                            }
-                        }
-
-                        if(assignment_list.isEmpty())
-                            txt_upcoming_assignment.setVisibility(View.GONE);
-                        else
-                            txt_upcoming_assignment.setVisibility(View.VISIBLE);
-
-                        upcoming_assignment_rec.setAdapter(assignmentAdaptor);
-                        assignmentAdaptor.notifyDataSetChanged();
-                    }
-                });
-
-
+        // New event clicked by user
         add_new_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -546,12 +549,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Displays toast
+     * @param s
+     */
     private void displayToast(String s) {
         Toast.makeText(MainActivity.this,s,Toast.LENGTH_LONG).show();
     }
 
+    /**
+     *
+     * @param view
+     * Creates new class, viva, assignment, quiz, lab
+     */
     private void new_event(View view) {
-        //  add_new_event.hide();
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.popup_new_events, null);
@@ -564,7 +575,6 @@ public class MainActivity extends AppCompatActivity {
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
         // show the popup window
-        // which view you pass in doesn't matter, it is only used for the window tolken
         popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
         RelativeLayout add_new_class=(RelativeLayout) popupView.findViewById(R.id.select_class);
         RelativeLayout add_new_assignment=(RelativeLayout) popupView.findViewById(R.id.select_assignment);
@@ -572,12 +582,11 @@ public class MainActivity extends AppCompatActivity {
         RelativeLayout add_new_lab=(RelativeLayout) popupView.findViewById(R.id.select_lab);
         RelativeLayout add_new_viva=(RelativeLayout) popupView.findViewById(R.id.select_viva);
 
-
+        //Creates new popup for filling up new class details
         add_new_class.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
                 popupWindow.dismiss();
-              //  new_class(view);
                 LayoutInflater inflater = (LayoutInflater)
                         getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupclassView = inflater.inflate(R.layout.popup_new_class, null);
@@ -590,7 +599,6 @@ public class MainActivity extends AppCompatActivity {
                 final PopupWindow popupClassWindow = new PopupWindow(popupclassView, width_class, height_class, focusable);
 
                 // show the popup window
-                // which view you pass in doesn't matter, it is only used for the window tolken
                 popupClassWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
 
                 RelativeLayout time_slot_layout = popupclassView.findViewById(R.id.edit_time_slot);
@@ -629,7 +637,7 @@ public class MainActivity extends AppCompatActivity {
                 slotrecycler.setAdapter(slotAdaptor);
                 slotAdaptor.notifyDataSetChanged();
 
-
+                //Add new class slots
                 add_new_slot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -644,7 +652,7 @@ public class MainActivity extends AppCompatActivity {
                         new_slot_btn.setVisibility(View.VISIBLE);
                         isclick[0]= !course_time.getText().toString().isEmpty();
 
-
+                        //Highlighting respective button of selected week days
                         Monday.setOnClickListener(new View.OnClickListener() {
                             @RequiresApi(api = Build.VERSION_CODES.N)
                             @Override
@@ -667,8 +675,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         });
-
-
                         Tuesday.setOnClickListener(new View.OnClickListener() {
                             @RequiresApi(api = Build.VERSION_CODES.N)
                             @Override
@@ -802,7 +808,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
 
-
+                        // Adding slot to slot list
                         new_slot_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -841,6 +847,7 @@ public class MainActivity extends AppCompatActivity {
 
                 isclick[0]=!course_code.getText().toString().isEmpty();
 
+                //Submit final request to create new class
                 submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -864,12 +871,14 @@ public class MainActivity extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
+                                            //Request Sent
                                             popupClassWindow.dismiss();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull @NotNull Exception e) {
+                                            //Request not sent
                                             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
                                         }
                                     });
@@ -882,11 +891,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        //Creates new popup for filling up new assignment details
         add_new_assignment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
                 popupWindow.dismiss();
-                //  new_class(view);
                 LayoutInflater inflater = (LayoutInflater)
                         getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupclassView = inflater.inflate(R.layout.popup_new_assignment, null);
@@ -899,7 +909,6 @@ public class MainActivity extends AppCompatActivity {
                 final PopupWindow popupClassWindow = new PopupWindow(popupclassView, width_class, height_class, focusable);
 
                 // show the popup window
-                // which view you pass in doesn't matter, it is only used for the window tolken
                 popupClassWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
 
                 Map<String, Object> data = new HashMap<>();
@@ -917,6 +926,8 @@ public class MainActivity extends AppCompatActivity {
 
                 final String[] tags = {"Assignment"};
                 TextView add_tags_button = popupclassView.findViewById(R.id.add_tags);
+
+                // Add tags to assignment
                 add_tags_button.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
@@ -941,6 +952,8 @@ public class MainActivity extends AppCompatActivity {
                 EditText  code = popupclassView.findViewById(R.id.new_assignment_code);
                 EditText  name = popupclassView.findViewById(R.id.new_assignment_name);
                 EditText  platform = popupclassView.findViewById(R.id.new_assignment_platform);
+
+                //Submit final request to create new assignment
                 add_assignment.setOnClickListener(v1 -> {
                     Log.d("abcd", tags[0]);
                     data.put("Code",code.getText().toString());
@@ -955,20 +968,23 @@ public class MainActivity extends AppCompatActivity {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull @NotNull Exception e) {
+                                    //Request not sent
                                     Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                                     Log.d("abcd", e.getMessage());
                                 }
                             });
+
                     popupClassWindow.dismiss();
                 });
 
             }
         });
+
+        //Creates new popup for filling up new quiz details
         add_new_quiz.setOnClickListener(view1 -> {
             Map<String, Object> data = new HashMap<>();
 
             popupWindow.dismiss();
-            //  new_class(view);
             LayoutInflater inflater1 = (LayoutInflater)
                     getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupclassView = inflater1.inflate(R.layout.popup_new_quiz, null);
@@ -981,7 +997,6 @@ public class MainActivity extends AppCompatActivity {
             final PopupWindow popupClassWindow = new PopupWindow(popupclassView, width_class, height_class, focusable1);
 
             // show the popup window
-            // which view you pass in doesn't matter, it is only used for the window tolken
             popupClassWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
 
             TextView time_selector = popupclassView.findViewById(R.id.new_date);
@@ -997,6 +1012,8 @@ public class MainActivity extends AppCompatActivity {
 
             final String[] tags = {"Quiz"};
             TextView add_tags_button = popupclassView.findViewById(R.id.add_tags);
+
+            //add tags to quiz
             add_tags_button.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
@@ -1022,6 +1039,8 @@ public class MainActivity extends AppCompatActivity {
             EditText  name = popupclassView.findViewById(R.id.new_quiz_name);
             EditText  duration = popupclassView.findViewById(R.id.new_quiz_duration);
             EditText  platform = popupclassView.findViewById(R.id.new_quiz_platform);
+
+            //Submit request to create quiz
             update_time.setOnClickListener(v1 -> {
                 data.put("Code",code.getText().toString());
                 data.put("Name",name.getText().toString());
@@ -1036,6 +1055,7 @@ public class MainActivity extends AppCompatActivity {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull @NotNull Exception e) {
+                                //Request not sent
                                 Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -1043,6 +1063,8 @@ public class MainActivity extends AppCompatActivity {
             });
 
         });
+
+        //Creates new popup for filling up new lab details
         add_new_lab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -1060,7 +1082,6 @@ public class MainActivity extends AppCompatActivity {
                 final PopupWindow popupClassWindow = new PopupWindow(popupclassView, width_class, height_class, focusable);
 
                 // show the popup window
-                // which view you pass in doesn't matter, it is only used for the window tolken
                 popupClassWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
 
                 RelativeLayout lab_name_layout = popupclassView.findViewById(R.id.edit_labname_slot);
@@ -1102,7 +1123,7 @@ public class MainActivity extends AppCompatActivity {
                 lab_slot_rec.setAdapter(labAdaptor);
                 labAdaptor.notifyDataSetChanged();
 
-
+                //Adding lab slots
                 add_new_lab_slot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -1117,7 +1138,7 @@ public class MainActivity extends AppCompatActivity {
                         create_lab_slot.setVisibility(View.VISIBLE);
                         isclick[0]= !lab_time.getText().toString().isEmpty();
 
-
+                        //Highlighting respective color of selcted week days
                         Monday.setOnClickListener(new View.OnClickListener() {
                             @RequiresApi(api = Build.VERSION_CODES.N)
                             @Override
@@ -1287,7 +1308,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
 
-
+                        // Adding slot to main slot list
                         create_lab_slot.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -1331,6 +1352,7 @@ public class MainActivity extends AppCompatActivity {
 
                 isclick[0]=!lab_code.getText().toString().isEmpty();
 
+                //Submit request to create new lab
                 submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -1354,12 +1376,14 @@ public class MainActivity extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
+                                            //Request sent
                                             popupClassWindow.dismiss();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull @NotNull Exception e) {
+                                            //Request not sent
                                             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
                                         }
                                     });
@@ -1373,6 +1397,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        //Creates new popup for filling up new viva details
         add_new_viva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -1390,7 +1416,6 @@ public class MainActivity extends AppCompatActivity {
                 final PopupWindow popupClassWindow = new PopupWindow(popupclassView, width_class, height_class, focusable);
 
                 // show the popup window
-                // which view you pass in doesn't matter, it is only used for the window tolken
                 popupClassWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
 
                 Map<String, Object> data = new HashMap<>();
@@ -1408,6 +1433,8 @@ public class MainActivity extends AppCompatActivity {
 
                 final String[] tags = {"Viva"};
                 TextView add_tags_button = popupclassView.findViewById(R.id.add_tags);
+
+                //Add tags to viva
                 add_tags_button.setOnClickListener(new View.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
@@ -1433,6 +1460,8 @@ public class MainActivity extends AppCompatActivity {
                 EditText  name = popupclassView.findViewById(R.id.new_viva_name);
                 EditText  duration = popupclassView.findViewById(R.id.new_viva_duration);
                 EditText  platform = popupclassView.findViewById(R.id.new_viva_platform);
+
+                //Submit request to create viva
                 update_time.setOnClickListener(v1 -> {
                     data.put("Code",code.getText().toString());
                     data.put("Name",name.getText().toString());
@@ -1447,6 +1476,7 @@ public class MainActivity extends AppCompatActivity {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull @NotNull Exception e) {
+                                    //Request not sent
                                     Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -1455,6 +1485,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+        //Dismisses all popups on touching outside it
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -1466,6 +1499,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Widget to set date and time
+     * @param context
+     * @param popup
+     */
     public void showDateTimePicker(Context context, View popup) {
 
         Calendar calendar;
