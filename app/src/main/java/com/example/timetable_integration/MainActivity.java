@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        // Setting up quizzes on main screen
+        // Setting up today's quizzes on main screen
         fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Quiz")
                 .whereNotEqualTo("Status","Pending")
                 .get()
@@ -326,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        // Setting up viva on main screen
+        // Setting up today's viva on main screen
         fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Viva")
                 .whereNotEqualTo("Status","Pending")
                 .get()
@@ -369,7 +369,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        // Setting up assignment on main screen
+        // Setting up today's assignment on main screen
         fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Assignment")
                 .whereNotEqualTo("Status","Pending")
                 .get()
@@ -403,142 +403,145 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        // Setting up upcoming quiz on main screen
+        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Quiz")
+                .whereNotEqualTo("Status","Pending")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-//        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Quiz")
-//                .whereNotEqualTo("Status","Pending")
-//                .get()
-//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//
-//
-//                        if(queryDocumentSnapshots.isEmpty())
-//                        {
-//                            txt_upcoming_quiz.setVisibility(View.GONE);
-//                            return;
-//                        }
-//
-//                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
-//                        {
-//
-//                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-//
-//                            Timestamp timestamp = d.getTimestamp("Time");
-//
-//                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
-//
-//                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
-//
-//                            Log.d("Date", date);
-//                            Log.d("today_Date", today_date);
-//
-//                            if(!date.equals(today_date))
-//                            {
-//                                Quiz obj = d.toObject(Quiz.class);
-//                                quiz_list.add(obj);
-//                            }
-//
-//
-//                        }
-//
-//                        if(quiz_list.isEmpty())
-//                            txt_upcoming_quiz.setVisibility(View.GONE);
-//                        else
-//                            txt_upcoming_quiz.setVisibility(View.VISIBLE);
-//
-//                        upcoming_quiz_rec.setAdapter(quizAdaptor);
-//                        quizAdaptor.notifyDataSetChanged();
-//
-//                    }
-//                });
-//        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Viva")
-//                .whereNotEqualTo("Status","Pending")
-//                .get()
-//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                        if(queryDocumentSnapshots.isEmpty())
-//                        {
-//                            txt_upcoming_quiz.setVisibility(View.GONE);
-//                            return;
-//                        }
-//
-//                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
-//                        {
-//
-//                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-//
-//                            Timestamp timestamp = d.getTimestamp("Time");
-//
-//                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
-//
-//                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
-//
-//                            Log.d("Date", date);
-//                            Log.d("today_Date", today_date);
-//
-//                            if(!date.equals(today_date))
-//                            {
-//                                Quiz obj = d.toObject(Quiz.class);
-//                                quiz_list.add(obj);
-//                            }
-//
-//
-//                        }
-//
-//
-//                        if(quiz_list.isEmpty())
-//                            txt_upcoming_quiz.setVisibility(View.GONE);
-//                        else
-//                            txt_upcoming_quiz.setVisibility(View.VISIBLE);
-//
-//                        upcoming_quiz_rec.setAdapter(quizAdaptor);
-//                        quizAdaptor.notifyDataSetChanged();
-//
-//                    }
-//                });
 
-//
-//
-//
-//        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Assignment")
-//                .whereNotEqualTo("Status","Pending")
-//                .get()
-//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                        if(queryDocumentSnapshots.isEmpty())
-//                        {
-//                            txt_upcoming_assignment.setVisibility(View.GONE);
-//                            return;
-//                        }
-//
-//                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
-//                        {
-//                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-//
-//                            Timestamp timestamp = d.getTimestamp("Deadline");
-//
-//                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
-//
-//                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
-//
-//                            if(!date.equals(today_date))
-//                            {
-//                                Assignment obj = d.toObject(Assignment.class);
-//                                assignment_list.add(obj);
-//                            }
-//                        }
-//
-//                        if(assignment_list.isEmpty())
-//                            txt_upcoming_assignment.setVisibility(View.GONE);
-//                        else
-//                            txt_upcoming_assignment.setVisibility(View.VISIBLE);
-//
-//                        upcoming_assignment_rec.setAdapter(assignmentAdaptor);
-//                        assignmentAdaptor.notifyDataSetChanged();
-//                    }
-//                });
+                        if(queryDocumentSnapshots.isEmpty())
+                        {
+                            txt_upcoming_quiz.setVisibility(View.GONE);
+                            return;
+                        }
+
+                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+                        {
+
+                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+
+                            Timestamp timestamp = d.getTimestamp("Time");
+
+                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
+
+                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
+
+                            Log.d("Date", date);
+                            Log.d("today_Date", today_date);
+
+                            if(!date.equals(today_date))
+                            {
+                                Quiz obj = d.toObject(Quiz.class);
+                                quiz_list.add(obj);
+                            }
+
+
+                        }
+
+                        if(quiz_list.isEmpty())
+                            txt_upcoming_quiz.setVisibility(View.GONE);
+                        else
+                            txt_upcoming_quiz.setVisibility(View.VISIBLE);
+
+                       upcoming_quiz_rec.setAdapter(quizAdaptor);
+                        quizAdaptor.notifyDataSetChanged();
+
+                    }
+                });
+
+        // Setting up upcoming viva on main screen
+        fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Viva")
+                .whereNotEqualTo("Status","Pending")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                      if(queryDocumentSnapshots.isEmpty())
+                       {
+                            txt_upcoming_quiz.setVisibility(View.GONE);
+                            return;
+                        }
+
+                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+                        {
+
+                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+
+                            Timestamp timestamp = d.getTimestamp("Time");
+
+                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
+
+                           String date = DateFormat.format("dd/MM/yyyy",cal).toString();
+
+                            Log.d("Date", date);
+                            Log.d("today_Date", today_date);
+
+                            if(!date.equals(today_date))
+                            {
+                                Quiz obj = d.toObject(Quiz.class);
+                                quiz_list.add(obj);
+                           }
+
+
+                        }
+
+
+                        if(quiz_list.isEmpty())
+                            txt_upcoming_quiz.setVisibility(View.GONE);
+                        else
+                            txt_upcoming_quiz.setVisibility(View.VISIBLE);
+
+                        upcoming_quiz_rec.setAdapter(quizAdaptor);
+                        quizAdaptor.notifyDataSetChanged();
+
+                   }
+               });
+
+
+        //Setting up upcoming assignment
+       fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Assignment")
+                .whereNotEqualTo("Status","Pending")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(queryDocumentSnapshots.isEmpty())
+                        {
+                            txt_upcoming_assignment.setVisibility(View.GONE);
+                            return;
+                        }
+
+                        for(DocumentSnapshot d:queryDocumentSnapshots.getDocuments())
+                        {
+                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+
+                            Timestamp timestamp = d.getTimestamp("Deadline");
+
+                            cal.setTimeInMillis(Long.parseLong(String.valueOf(timestamp.getSeconds()*1000L)));
+
+                            String date = DateFormat.format("dd/MM/yyyy",cal).toString();
+
+                            if(!date.equals(today_date))
+                            {
+                                Assignment obj = d.toObject(Assignment.class);
+                                assignment_list.add(obj);
+                          }
+                        }
+
+                        if(assignment_list.isEmpty())
+                            txt_upcoming_assignment.setVisibility(View.GONE);
+                        else
+                            txt_upcoming_assignment.setVisibility(View.VISIBLE);
+
+                        upcoming_assignment_rec.setAdapter(assignmentAdaptor);
+                        assignmentAdaptor.notifyDataSetChanged();
+                    }
+                });
+
+
 
         // New event clicked by user
         add_new_event.setOnClickListener(new View.OnClickListener() {
@@ -547,6 +550,7 @@ public class MainActivity extends AppCompatActivity {
                 new_event(view);
             }
         });
+
     }
 
     /**
@@ -562,6 +566,9 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      * Creates new class, viva, assignment, quiz, lab
      */
+
+    //Opening popup menu
+
     private void new_event(View view) {
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -631,9 +638,7 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayoutManager ll = new LinearLayoutManager(getApplicationContext());
                 ll.setReverseLayout(true);
                 ll.setStackFromEnd(true);
-
                 slotrecycler.setLayoutManager(ll);
-
                 slotrecycler.setAdapter(slotAdaptor);
                 slotAdaptor.notifyDataSetChanged();
 
@@ -855,6 +860,7 @@ public class MainActivity extends AppCompatActivity {
                         if(!isclick[0])
                         {
 
+                            //adding data to the firstore
                             HashMap<String,Object> doc=new HashMap<>();
 
                             doc.put("Code",course_code.getText().toString());
@@ -1034,14 +1040,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            Button update_time = popupclassView.findViewById(R.id.add_quiz);
+            Button submit = popupclassView.findViewById(R.id.add_quiz);
             EditText  code = popupclassView.findViewById(R.id.new_quiz_code);
             EditText  name = popupclassView.findViewById(R.id.new_quiz_name);
             EditText  duration = popupclassView.findViewById(R.id.new_quiz_duration);
             EditText  platform = popupclassView.findViewById(R.id.new_quiz_platform);
 
             //Submit request to create quiz
-            update_time.setOnClickListener(v1 -> {
+            submit.setOnClickListener(v1 -> {
                 data.put("Code",code.getText().toString());
                 data.put("Name",name.getText().toString());
                 data.put("Duration",duration.getText().toString());
@@ -1455,14 +1461,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                Button update_time = popupclassView.findViewById(R.id.add_viva);
+                Button submit = popupclassView.findViewById(R.id.add_viva);
                 EditText  code = popupclassView.findViewById(R.id.new_viva_code);
                 EditText  name = popupclassView.findViewById(R.id.new_viva_name);
                 EditText  duration = popupclassView.findViewById(R.id.new_viva_duration);
                 EditText  platform = popupclassView.findViewById(R.id.new_viva_platform);
 
                 //Submit request to create viva
-                update_time.setOnClickListener(v1 -> {
+                submit.setOnClickListener(v1 -> {
                     data.put("Code",code.getText().toString());
                     data.put("Name",name.getText().toString());
                     data.put("Duration",duration.getText().toString());
