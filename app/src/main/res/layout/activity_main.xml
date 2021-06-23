@@ -96,7 +96,17 @@
 
     </androidx.core.widget.NestedScrollView>
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="130dp"
+        app:fabSize="normal"
+        android:id="@+id/edit_event"
+        android:backgroundTint="#FFCB11"
+        app:tint="#FFF"
+        android:src="@drawable/ic_edit" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
@@ -109,6 +119,8 @@
         android:backgroundTint="#FFCB11"
         app:tint="#FFF"
         android:src="@drawable/ic_add" />
+
+
 
  <!--   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:layout_width="wrap_content"

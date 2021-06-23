@@ -58,7 +58,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    FloatingActionButton add_new_event;
+    FloatingActionButton add_new_event,edit_event;
 
     RecyclerView today_class_rec;
     RecyclerView upcoming_quiz_rec;
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         add_new_event=(FloatingActionButton) findViewById(R.id.add_new_event);
+        edit_event=(FloatingActionButton) findViewById(R.id.edit_event);
         fstore = FirebaseFirestore.getInstance();
         today_class_rec = findViewById(R.id.today_class_recycler);
         upcoming_quiz_rec = findViewById(R.id.upcoming_quiz_recycler);
@@ -548,6 +549,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new_event(view);
+            }
+        });
+
+        // Edit event clicked by user
+        edit_event.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editEvent(view);
             }
         });
 
@@ -1413,6 +1422,942 @@ public class MainActivity extends AppCompatActivity {
                 LayoutInflater inflater = (LayoutInflater)
                         getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupclassView = inflater.inflate(R.layout.popup_new_viva, null);
+
+                // create the popup window
+                int width_class = LinearLayout.LayoutParams.MATCH_PARENT;
+                int height_class = LinearLayout.LayoutParams.WRAP_CONTENT;
+                //boolean focusable = true; // lets taps outside the popup also dismiss it
+                boolean focusable = true;
+                final PopupWindow popupClassWindow = new PopupWindow(popupclassView, width_class, height_class, focusable);
+
+                // show the popup window
+                popupClassWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+                Map<String, Object> data = new HashMap<>();
+
+                TextView time_selector = popupclassView.findViewById(R.id.new_date);
+                time_selector.setOnClickListener(view2 -> {
+                    showDateTimePicker(popupclassView.getContext(),popupclassView);
+                });
+                ImageView deleteDate = popupclassView.findViewById(R.id.date_delete_button);
+                deleteDate.setOnClickListener(v -> {
+                    date = null;
+                    time_selector.setText("Select Date and Time");
+                    v.setVisibility(View.GONE);
+                });
+
+                final String[] tags = {"Viva"};
+                TextView add_tags_button = popupclassView.findViewById(R.id.add_tags);
+
+                //Add tags to viva
+                add_tags_button.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
+                    @Override
+                    public void onClick(View view1) {
+                        LinearLayout l = popupclassView.findViewById(R.id.tags);
+                        EditText e = popupclassView.findViewById(R.id.tag_edit_text);
+                        String s = e.getText().toString();
+                        tags[0] = tags[0] + "," + s;
+                        e.setText("");
+                        TextView t = new TextView(popupclassView.getContext());
+                        t.setText("   "+s);
+                        t.setLayoutParams(new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                        t.setTextAppearance(R.style.tag);
+
+                        l.addView(t);
+                    }
+                });
+
+                Button submit = popupclassView.findViewById(R.id.add_viva);
+                EditText  code = popupclassView.findViewById(R.id.new_viva_code);
+                EditText  name = popupclassView.findViewById(R.id.new_viva_name);
+                EditText  duration = popupclassView.findViewById(R.id.new_viva_duration);
+                EditText  platform = popupclassView.findViewById(R.id.new_viva_platform);
+
+                //Submit request to create viva
+                submit.setOnClickListener(v1 -> {
+                    data.put("Code",code.getText().toString());
+                    data.put("Name",name.getText().toString());
+                    data.put("Duration",duration.getText().toString());
+                    data.put("Platform",platform.getText().toString());
+                    if (date != null) {
+                        data.put("Time", new Timestamp(date));
+                    }
+                    data.put("Status","Pending");
+                    data.put("tags",tags[0]);
+                    fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection(student_branch).document("Group 1").collection("Viva").add(data)
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull @NotNull Exception e) {
+                                    //Request not sent
+                                    Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    popupClassWindow.dismiss();
+                });
+
+            }
+        });
+
+
+        //Dismisses all popups on touching outside it
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                popupWindow.dismiss();
+                return true;
+            }
+        });
+
+    }
+
+
+    private void editEvent(View view) {
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_edit_events, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.MATCH_PARENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        //boolean focusable = true; // lets taps outside the popup also dismiss it
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // show the popup window
+        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        RelativeLayout edit_class=(RelativeLayout) popupView.findViewById(R.id.select_class);
+        RelativeLayout edit_assignment=(RelativeLayout) popupView.findViewById(R.id.select_assignment);
+        RelativeLayout edit_quiz=(RelativeLayout) popupView.findViewById(R.id.select_quiz);
+        RelativeLayout edit_lab=(RelativeLayout) popupView.findViewById(R.id.select_lab);
+        RelativeLayout edit_viva=(RelativeLayout) popupView.findViewById(R.id.select_viva);
+
+        //Creates new popup for filling up new class details
+        edit_class.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                popupWindow.dismiss();
+                LayoutInflater inflater = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupclassView = inflater.inflate(R.layout.popup_edit_class, null);
+
+                // create the popup window
+                int width_class = LinearLayout.LayoutParams.MATCH_PARENT;
+                int height_class = LinearLayout.LayoutParams.WRAP_CONTENT;
+                //boolean focusable = true; // lets taps outside the popup also dismiss it
+                boolean focusable = true;
+                final PopupWindow popupClassWindow = new PopupWindow(popupclassView, width_class, height_class, focusable);
+
+                // show the popup window
+                popupClassWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+                RelativeLayout time_slot_layout = popupclassView.findViewById(R.id.edit_time_slot);
+                RelativeLayout choose_day_layout = popupclassView.findViewById(R.id.edit_day_slot);
+                RelativeLayout choose_plateform_layout = popupclassView.findViewById(R.id.edit_plateform_slot);
+                RelativeLayout choose_name_layout = popupclassView.findViewById(R.id.edit_name_slot);
+                EditText course_code = popupclassView.findViewById(R.id.course_code);
+                EditText course_name = popupclassView.findViewById(R.id.course_name);
+                EditText course_plateform = popupclassView.findViewById(R.id.course_plateform);
+                RecyclerView slotrecycler = popupclassView.findViewById(R.id.slot_recycler);
+                TextView add_new_slot = popupclassView.findViewById(R.id.add_new_slot);
+                Button submit = popupclassView.findViewById(R.id.create_new_class);
+                Button new_slot_btn = popupclassView.findViewById(R.id.create_new_slot);
+
+                EditText course_time = popupclassView.findViewById(R.id.course_time);
+                TextView Monday = popupclassView.findViewById(R.id.Monday);
+                TextView Tuesday = popupclassView.findViewById(R.id.Tuesday);
+                TextView Wednesday = popupclassView.findViewById(R.id.Wednesday);
+                TextView Thursday = popupclassView.findViewById(R.id.Thursday);
+                TextView Friday = popupclassView.findViewById(R.id.Friday);
+                TextView Saturday = popupclassView.findViewById(R.id.Saturday);
+                TextView Sunday = popupclassView.findViewById(R.id.Sunday);
+
+                final Boolean[] isclick = {false};
+
+                ArrayList<Slot> slot_list = new ArrayList<>();
+
+                SlotAdaptor slotAdaptor = new SlotAdaptor(slot_list,getApplicationContext());
+
+                LinearLayoutManager ll = new LinearLayoutManager(getApplicationContext());
+                ll.setReverseLayout(true);
+                ll.setStackFromEnd(true);
+                slotrecycler.setLayoutManager(ll);
+                slotrecycler.setAdapter(slotAdaptor);
+                slotAdaptor.notifyDataSetChanged();
+
+                //Add new class slots
+                add_new_slot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        slotrecycler.setVisibility(View.GONE);
+                        add_new_slot.setVisibility(View.GONE);
+                        submit.setVisibility(View.GONE);
+                        time_slot_layout.setVisibility(View.VISIBLE);
+                        choose_day_layout.setVisibility(View.VISIBLE);
+                        choose_name_layout.setVisibility(View.VISIBLE);
+                        choose_plateform_layout.setVisibility(View.VISIBLE);
+                        new_slot_btn.setVisibility(View.VISIBLE);
+                        isclick[0]= !course_time.getText().toString().isEmpty();
+
+                        //Highlighting respective button of selected week days
+                        Monday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if (Monday.getCurrentTextColor() == Color.parseColor("#99A2A5"))
+                                {
+                                    Monday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Monday.setTextColor(Color.parseColor("#4D5C62"));
+                                    slot_list.add(new Slot("Monday", course_time.getText().toString()));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Monday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Monday.setTextColor(Color.parseColor("#99A2A5"));
+                                    slot_list.removeIf(a->(a.getDay().equals("Monday")));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                        Tuesday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if(Tuesday.getCurrentTextColor()==Color.parseColor("#99A2A5"))
+                                {
+                                    Tuesday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Tuesday.setTextColor(Color.parseColor("#4D5C62"));
+                                    slot_list.add(new Slot("Tuesday",course_time.getText().toString()));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Tuesday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Tuesday.setTextColor(Color.parseColor("#99A2A5"));
+                                    slot_list.removeIf(a->(a.getDay().equals("Tuesday")));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                        Wednesday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if(Wednesday.getCurrentTextColor()==Color.parseColor("#99A2A5"))
+                                {
+                                    Wednesday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Wednesday.setTextColor(Color.parseColor("#4D5C62"));
+                                    slot_list.add(new Slot("Wednesday",course_time.getText().toString()));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Wednesday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Wednesday.setTextColor(Color.parseColor("#99A2A5"));
+                                    slot_list.removeIf(a->(a.getDay().equals("Wednesday")));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                        Thursday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if(Thursday.getCurrentTextColor()==Color.parseColor("#99A2A5"))
+                                {
+                                    Thursday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Thursday.setTextColor(Color.parseColor("#4D5C62"));
+                                    slot_list.add(new Slot("Thursday",course_time.getText().toString()));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Thursday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Thursday.setTextColor(Color.parseColor("#99A2A5"));
+                                    slot_list.removeIf(a->(a.getDay().equals("Thursday")));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                        Friday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if(Friday.getCurrentTextColor()==Color.parseColor("#99A2A5"))
+                                {
+                                    Friday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Friday.setTextColor(Color.parseColor("#4D5C62"));
+                                    slot_list.add(new Slot("Friday",course_time.getText().toString()));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Friday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Friday.setTextColor(Color.parseColor("#99A2A5"));
+                                    slot_list.removeIf(a->(a.getDay().equals("Friday")));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                        Saturday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if(Saturday.getCurrentTextColor()==Color.parseColor("#99A2A5"))
+                                {
+                                    Saturday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Saturday.setTextColor(Color.parseColor("#4D5C62"));
+                                    slot_list.add(new Slot("Saturday",course_time.getText().toString()));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Saturday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Saturday.setTextColor(Color.parseColor("#99A2A5"));
+                                    slot_list.removeIf(a->(a.getDay().equals("Saturday")));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                        Sunday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if(Sunday.getCurrentTextColor()==Color.parseColor("#99A2A5"))
+                                {
+                                    Sunday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Sunday.setTextColor(Color.parseColor("#4D5C62"));
+                                    slot_list.add(new Slot("Sunday",course_time.getText().toString()));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Sunday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Sunday.setTextColor(Color.parseColor("#99A2A5"));
+                                    slot_list.removeIf(a->(a.getDay().equals("Sunday")));
+                                    slotrecycler.setAdapter(slotAdaptor);
+                                    slotAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+
+                        // Adding slot to slot list
+                        new_slot_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                slotrecycler.setVisibility(View.VISIBLE);
+                                add_new_slot.setVisibility(View.VISIBLE);
+                                new_slot_btn.setVisibility(View.GONE);
+                                submit.setVisibility(View.VISIBLE);
+                                time_slot_layout.setVisibility(View.GONE);
+                                choose_day_layout.setVisibility(View.GONE);
+                                choose_name_layout.setVisibility(View.GONE);
+                                choose_plateform_layout.setVisibility(View.GONE);
+                                course_time.setText("");
+
+                                Sunday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Sunday.setTextColor(Color.parseColor("#99A2A5"));
+                                Saturday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Saturday.setTextColor(Color.parseColor("#99A2A5"));
+                                Friday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Friday.setTextColor(Color.parseColor("#99A2A5"));
+                                Monday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Monday.setTextColor(Color.parseColor("#99A2A5"));
+                                Tuesday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Tuesday.setTextColor(Color.parseColor("#99A2A5"));
+                                Wednesday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Wednesday.setTextColor(Color.parseColor("#99A2A5"));
+                                Thursday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Thursday.setTextColor(Color.parseColor("#99A2A5"));
+
+                                isclick[0]=false;
+                            }
+                        });
+
+                    }
+                });
+
+
+                isclick[0]=!course_code.getText().toString().isEmpty();
+
+                //Submit final request to create new class
+                submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(!isclick[0])
+                        {
+
+                            //adding data to the firstore
+                            HashMap<String,Object> doc=new HashMap<>();
+
+                            doc.put("Code",course_code.getText().toString());
+                            doc.put("Name",course_name.getText().toString());
+                            doc.put("Platform",course_plateform.getText().toString());
+                            doc.put("Status","Pending");
+                            doc.put("Slots",slot_list);
+                            doc.put("tags","Theory");
+                            doc.put("Duration","1 hour");
+
+                            fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Class")
+                                    .document(course_code.getText().toString())
+                                    .set(doc)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            //Request Sent
+                                            popupClassWindow.dismiss();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull @NotNull Exception e) {
+                                            //Request not sent
+                                            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                        }
+
+                    }
+                });
+
+
+            }
+        });
+
+        //Creates new popup for filling up new assignment details
+        edit_assignment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                popupWindow.dismiss();
+                LayoutInflater inflater = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupclassView = inflater.inflate(R.layout.popup_edit_assignment, null);
+
+                // create the popup window
+                int width_class = LinearLayout.LayoutParams.MATCH_PARENT;
+                int height_class = LinearLayout.LayoutParams.WRAP_CONTENT;
+                //boolean focusable = true; // lets taps outside the popup also dismiss it
+                boolean focusable = true;
+                final PopupWindow popupClassWindow = new PopupWindow(popupclassView, width_class, height_class, focusable);
+
+                // show the popup window
+                popupClassWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+                Map<String, Object> data = new HashMap<>();
+
+                TextView time_selector = popupclassView.findViewById(R.id.new_date);
+                time_selector.setOnClickListener(view2 -> {
+                    showDateTimePicker(popupclassView.getContext(),popupclassView);
+                });
+                ImageView deleteDate = popupclassView.findViewById(R.id.date_delete_button);
+                deleteDate.setOnClickListener(v -> {
+                    date = null;
+                    time_selector.setText("Select Deadline");
+                    v.setVisibility(View.GONE);
+                });
+
+                final String[] tags = {"Assignment"};
+                TextView add_tags_button = popupclassView.findViewById(R.id.add_tags);
+
+                // Add tags to assignment
+                add_tags_button.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
+                    @Override
+                    public void onClick(View view1) {
+                        LinearLayout l = popupclassView.findViewById(R.id.tags);
+                        EditText e = popupclassView.findViewById(R.id.tag_edit_text);
+                        String s = e.getText().toString();
+                        tags[0] = tags[0] + "," + s;
+                        e.setText("");
+                        TextView t = new TextView(popupclassView.getContext());
+                        t.setText("   "+s);
+                        t.setLayoutParams(new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                        t.setTextAppearance(R.style.tag);
+
+                        l.addView(t);
+                    }
+                });
+
+                Button add_assignment = popupclassView.findViewById(R.id.add_assignment);
+                EditText  code = popupclassView.findViewById(R.id.new_assignment_code);
+                EditText  name = popupclassView.findViewById(R.id.new_assignment_name);
+                EditText  platform = popupclassView.findViewById(R.id.new_assignment_platform);
+
+                //Submit final request to create new assignment
+                add_assignment.setOnClickListener(v1 -> {
+                    Log.d("abcd", tags[0]);
+                    data.put("Code",code.getText().toString());
+                    data.put("Name",name.getText().toString());
+                    data.put("Platform",platform.getText().toString());
+                    if (date != null) {
+                        data.put("Deadline", new Timestamp(date));
+                    }
+                    data.put("tags",tags[0]);
+                    data.put("Status","Pending");
+                    fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection(student_branch).document("Group 1").collection("Assignment").add(data)
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull @NotNull Exception e) {
+                                    //Request not sent
+                                    Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                                    Log.d("abcd", e.getMessage());
+                                }
+                            });
+
+                    popupClassWindow.dismiss();
+                });
+
+            }
+        });
+
+        //Creates new popup for filling up new quiz details
+        edit_quiz.setOnClickListener(view1 -> {
+            Map<String, Object> data = new HashMap<>();
+
+            popupWindow.dismiss();
+            LayoutInflater inflater1 = (LayoutInflater)
+                    getSystemService(LAYOUT_INFLATER_SERVICE);
+            View popupclassView = inflater1.inflate(R.layout.popup_edit_quiz, null);
+
+            // create the popup window
+            int width_class = LinearLayout.LayoutParams.MATCH_PARENT;
+            int height_class = LinearLayout.LayoutParams.WRAP_CONTENT;
+            //boolean focusable = true; // lets taps outside the popup also dismiss it
+            boolean focusable1 = true;
+            final PopupWindow popupClassWindow = new PopupWindow(popupclassView, width_class, height_class, focusable1);
+
+            // show the popup window
+            popupClassWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+            TextView time_selector = popupclassView.findViewById(R.id.new_date);
+            time_selector.setOnClickListener(view2 -> {
+                showDateTimePicker(popupclassView.getContext(),popupclassView);
+            });
+            ImageView deleteDate = popupclassView.findViewById(R.id.date_delete_button);
+            deleteDate.setOnClickListener(v -> {
+                date = null;
+                time_selector.setText("Select Date and Time");
+                v.setVisibility(View.GONE);
+            });
+
+            final String[] tags = {"Quiz"};
+            TextView add_tags_button = popupclassView.findViewById(R.id.add_tags);
+
+            //add tags to quiz
+            add_tags_button.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.M)
+                @Override
+                public void onClick(View view1) {
+                    LinearLayout l = popupclassView.findViewById(R.id.tags);
+                    EditText e = popupclassView.findViewById(R.id.tag_edit_text);
+                    String s = e.getText().toString();
+                    tags[0] = tags[0] + "," + s;
+                    e.setText("");
+                    TextView t = new TextView(popupclassView.getContext());
+                    t.setText("   "+s);
+                    t.setLayoutParams(new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT));
+                    t.setTextAppearance(R.style.tag);
+
+                    l.addView(t);
+                }
+            });
+
+            Button submit = popupclassView.findViewById(R.id.add_quiz);
+            EditText  code = popupclassView.findViewById(R.id.new_quiz_code);
+            EditText  name = popupclassView.findViewById(R.id.new_quiz_name);
+            EditText  duration = popupclassView.findViewById(R.id.new_quiz_duration);
+            EditText  platform = popupclassView.findViewById(R.id.new_quiz_platform);
+
+            //Submit request to create quiz
+            submit.setOnClickListener(v1 -> {
+                data.put("Code",code.getText().toString());
+                data.put("Name",name.getText().toString());
+                data.put("Duration",duration.getText().toString());
+                data.put("Platform",platform.getText().toString());
+                if (date != null) {
+                    data.put("Time", new Timestamp(date));
+                }
+                data.put("tags",tags[0]);
+                data.put("Status","Pending");
+                fstore.collection("TimeTable").document(student_program).collection(student_year).document(student_semester).collection(student_branch).document("Group 1").collection("Quiz").add(data)
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull @NotNull Exception e) {
+                                //Request not sent
+                                Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                popupClassWindow.dismiss();
+            });
+
+        });
+
+        //Creates new popup for filling up new lab details
+        edit_lab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                popupWindow.dismiss();
+                //  new_class(view);
+                LayoutInflater inflater = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupclassView = inflater.inflate(R.layout.popup_edit_lab, null);
+
+                // create the popup window
+                int width_class = LinearLayout.LayoutParams.MATCH_PARENT;
+                int height_class = LinearLayout.LayoutParams.WRAP_CONTENT;
+                //boolean focusable = true; // lets taps outside the popup also dismiss it
+                boolean focusable = true;
+                final PopupWindow popupClassWindow = new PopupWindow(popupclassView, width_class, height_class, focusable);
+
+                // show the popup window
+                popupClassWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+                RelativeLayout lab_name_layout = popupclassView.findViewById(R.id.edit_labname_slot);
+                RelativeLayout lab_plateform_layout = popupclassView.findViewById(R.id.edit_labplateform_slot);
+                RelativeLayout lab_time_layout = popupclassView.findViewById(R.id.edit_labtime_slot);
+                RelativeLayout lab_day_layout = popupclassView.findViewById(R.id.edit_labday_slot);
+
+                EditText lab_code = popupclassView.findViewById(R.id.lab_code);
+                EditText lab_name = popupclassView.findViewById(R.id.lab_name);
+                EditText lab_plateform = popupclassView.findViewById(R.id.lab_plateform);
+                EditText lab_time = popupclassView.findViewById(R.id.lab_time);
+
+                TextView Monday = popupclassView.findViewById(R.id.LMonday);
+                TextView Tuesday = popupclassView.findViewById(R.id.LTuesday);
+                TextView Wednesday = popupclassView.findViewById(R.id.LWednesday);
+                TextView Thursday = popupclassView.findViewById(R.id.LThursday);
+                TextView Friday = popupclassView.findViewById(R.id.LFriday);
+                TextView Saturday = popupclassView.findViewById(R.id.LSaturday);
+                TextView Sunday = popupclassView.findViewById(R.id.LSunday);
+                TextView add_new_lab_slot = popupclassView.findViewById(R.id.add_new_labslot);
+
+                RecyclerView lab_slot_rec = popupclassView.findViewById(R.id.slot_labrecycler);
+
+                Button submit = popupclassView.findViewById(R.id.create_new_lab);
+                Button create_lab_slot = popupclassView.findViewById(R.id.create_new_labslot);
+
+                final Boolean[] isclick = {false};
+
+                ArrayList<Slot> labslot_list=new ArrayList<>();
+
+                SlotAdaptor labAdaptor = new SlotAdaptor(labslot_list,getApplicationContext());
+
+                LinearLayoutManager ll = new LinearLayoutManager(getApplicationContext());
+                ll.setReverseLayout(true);
+                ll.setStackFromEnd(true);
+
+                lab_slot_rec.setLayoutManager(ll);
+
+                lab_slot_rec.setAdapter(labAdaptor);
+                labAdaptor.notifyDataSetChanged();
+
+                //Adding lab slots
+                add_new_lab_slot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        lab_slot_rec.setVisibility(View.GONE);
+                        add_new_lab_slot.setVisibility(View.GONE);
+                        submit.setVisibility(View.GONE);
+
+                        lab_name_layout.setVisibility(View.VISIBLE);
+                        lab_day_layout.setVisibility(View.VISIBLE);
+                        lab_time_layout.setVisibility(View.VISIBLE);
+                        lab_plateform_layout.setVisibility(View.VISIBLE);
+                        create_lab_slot.setVisibility(View.VISIBLE);
+                        isclick[0]= !lab_time.getText().toString().isEmpty();
+
+                        //Highlighting respective color of selcted week days
+                        Monday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if (Monday.getCurrentTextColor() == Color.parseColor("#99A2A5"))
+                                {
+                                    Monday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Monday.setTextColor(Color.parseColor("#4D5C62"));
+                                    labslot_list.add(new Slot("Monday", lab_time.getText().toString()));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Monday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Monday.setTextColor(Color.parseColor("#99A2A5"));
+                                    labslot_list.removeIf(a->(a.getDay().equals("Monday")));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                        Tuesday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if(Tuesday.getCurrentTextColor()==Color.parseColor("#99A2A5"))
+                                {
+                                    Tuesday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Tuesday.setTextColor(Color.parseColor("#4D5C62"));
+                                    labslot_list.add(new Slot("Tuesday",lab_time.getText().toString()));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Tuesday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Tuesday.setTextColor(Color.parseColor("#99A2A5"));
+                                    labslot_list.removeIf(a->(a.getDay().equals("Tuesday")));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                        Wednesday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if(Wednesday.getCurrentTextColor()==Color.parseColor("#99A2A5"))
+                                {
+                                    Wednesday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Wednesday.setTextColor(Color.parseColor("#4D5C62"));
+                                    labslot_list.add(new Slot("Wednesday",lab_time.getText().toString()));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Wednesday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Wednesday.setTextColor(Color.parseColor("#99A2A5"));
+                                    labslot_list.removeIf(a->(a.getDay().equals("Wednesday")));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                        Thursday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if(Thursday.getCurrentTextColor()==Color.parseColor("#99A2A5"))
+                                {
+                                    Thursday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Thursday.setTextColor(Color.parseColor("#4D5C62"));
+                                    labslot_list.add(new Slot("Thursday",lab_time.getText().toString()));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Thursday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Thursday.setTextColor(Color.parseColor("#99A2A5"));
+                                    labslot_list.removeIf(a->(a.getDay().equals("Thursday")));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                        Friday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if(Friday.getCurrentTextColor()==Color.parseColor("#99A2A5"))
+                                {
+                                    Friday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Friday.setTextColor(Color.parseColor("#4D5C62"));
+                                    labslot_list.add(new Slot("Friday",lab_time.getText().toString()));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Friday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Friday.setTextColor(Color.parseColor("#99A2A5"));
+                                    labslot_list.removeIf(a->(a.getDay().equals("Friday")));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                        Saturday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if(Saturday.getCurrentTextColor()==Color.parseColor("#99A2A5"))
+                                {
+                                    Saturday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Saturday.setTextColor(Color.parseColor("#4D5C62"));
+                                    labslot_list.add(new Slot("Saturday",lab_time.getText().toString()));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Saturday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Saturday.setTextColor(Color.parseColor("#99A2A5"));
+                                    labslot_list.removeIf(a->(a.getDay().equals("Saturday")));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                        Sunday.setOnClickListener(new View.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onClick(View v) {
+                                if(Sunday.getCurrentTextColor()==Color.parseColor("#99A2A5"))
+                                {
+                                    Sunday.setBackgroundColor(Color.parseColor("#D8E6FF"));
+                                    Sunday.setTextColor(Color.parseColor("#4D5C62"));
+                                    labslot_list.add(new Slot("Sunday",lab_time.getText().toString()));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                                else
+                                {
+                                    Sunday.setBackgroundColor(getResources().getColor(R.color.white));
+                                    Sunday.setTextColor(Color.parseColor("#99A2A5"));
+                                    labslot_list.removeIf(a->(a.getDay().equals("Sunday")));
+
+                                    lab_slot_rec.setAdapter(labAdaptor);
+                                    labAdaptor.notifyDataSetChanged();
+                                }
+                            }
+                        });
+
+                        // Adding slot to main slot list
+                        create_lab_slot.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+
+                                lab_slot_rec.setVisibility(View.VISIBLE);
+                                add_new_lab_slot.setVisibility(View.VISIBLE);
+                                submit.setVisibility(View.VISIBLE);
+
+                                lab_name_layout.setVisibility(View.GONE);
+                                lab_day_layout.setVisibility(View.GONE);
+                                lab_time_layout.setVisibility(View.GONE);
+                                lab_plateform_layout.setVisibility(View.GONE);
+                                create_lab_slot.setVisibility(View.GONE);
+
+                                lab_time.setText("");
+
+                                Sunday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Sunday.setTextColor(Color.parseColor("#99A2A5"));
+                                Saturday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Saturday.setTextColor(Color.parseColor("#99A2A5"));
+                                Friday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Friday.setTextColor(Color.parseColor("#99A2A5"));
+                                Monday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Monday.setTextColor(Color.parseColor("#99A2A5"));
+                                Tuesday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Tuesday.setTextColor(Color.parseColor("#99A2A5"));
+                                Wednesday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Wednesday.setTextColor(Color.parseColor("#99A2A5"));
+                                Thursday.setBackgroundColor(getResources().getColor(R.color.white));
+                                Thursday.setTextColor(Color.parseColor("#99A2A5"));
+
+                                isclick[0]=false;
+                            }
+                        });
+
+                    }
+                });
+
+
+
+                isclick[0]=!lab_code.getText().toString().isEmpty();
+
+                //Submit request to create new lab
+                submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(!isclick[0])
+                        {
+
+                            HashMap<String,Object> doc=new HashMap<>();
+
+                            doc.put("Code",lab_code.getText().toString());
+                            doc.put("Name",lab_name.getText().toString());
+                            doc.put("Platform",lab_plateform.getText().toString());
+                            doc.put("Status","Pending");
+                            doc.put("Slots",labslot_list);
+                            doc.put("tags","Lab");
+                            doc.put("Duration","3 hour");
+
+                            fstore.collection("TimeTable/"+student_program+'/'+student_year+'/'+student_semester+'/'+student_branch+"/Group 1/Lab")
+                                    .document(lab_code.getText().toString())
+                                    .set(doc)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            //Request sent
+                                            popupClassWindow.dismiss();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull @NotNull Exception e) {
+                                            //Request not sent
+                                            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                        }
+
+                    }
+                });
+
+
+
+            }
+        });
+
+        //Creates new popup for filling up new viva details
+        edit_viva.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                popupWindow.dismiss();
+                //  new_class(view);
+                LayoutInflater inflater = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupclassView = inflater.inflate(R.layout.popup_edit_viva, null);
 
                 // create the popup window
                 int width_class = LinearLayout.LayoutParams.MATCH_PARENT;
