@@ -404,7 +404,7 @@
             android:layout_width="280dp"
             android:layout_height="20dp"
             android:layout_below="@+id/slot_labrecycler"
-            android:text="+ add a class slot"
+            android:text="+ add a lab slot"
             android:layout_marginLeft="48dp"
             android:layout_marginTop="40dp"
             android:id="@+id/add_new_labslot"
@@ -415,16 +415,84 @@
             android:textColor="#B3B9BC"/>
 
 
+        <RelativeLayout
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/lab_tag_layout"
+            android:layout_below="@+id/add_new_labslot">
+            <ImageView
+                android:layout_alignParentLeft="true"
+                android:id="@+id/hashtag_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_hashtag"
+                android:layout_marginLeft="8dp"/>
+            <TextView
+                android:id="@+id/add_tags_text"
+                android:layout_toRightOf="@id/hashtag_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Tags"
+                android:layout_marginLeft="12dp"
+                android:fontFamily="@font/montserrat"
+                android:textFontWeight="400"
+                android:textSize="15sp"
+                android:textColor="#4D5C62"
+                android:gravity="center_vertical"/>
+            <LinearLayout
+                android:id="@+id/tags"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/add_tags_text"
+                android:layout_marginLeft="16dp"
+                android:orientation="horizontal"
+                android:layout_toLeftOf="@+id/tag_edit_text"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/default_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    style="@style/tag"
+                    android:text="Lab"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/tag_edit_text"
+                android:layout_width="88dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="12sp"
+                android:layout_marginLeft="12dp"
+                android:layout_toLeftOf="@id/add_tags"
+                android:layout_marginRight="6dp"
+                android:hint="eg. Lab"
+                android:singleLine="true"/>
+            <TextView
+                android:id="@+id/add_tags"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="add"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/montserrat"
+                android:textFontWeight="400"
+                android:textColor="#649CFF"
+                android:textSize="14sp"
+                android:layout_marginRight="20dp"
+                />
+        </RelativeLayout>
+
         <Button
             android:layout_width="match_parent"
             android:id="@+id/create_new_lab"
             android:layout_height="72dp"
             android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/add_new_labslot"
+            android:layout_below="@+id/lab_tag_layout"
             android:textColor="@color/white"
             android:backgroundTint="#3D83FF"
-            android:text="Create Class"
+            android:text="Create Lab"
             android:visibility="visible"
             style="@style/no_corner_button"
             android:textAllCaps="false"
